@@ -1,0 +1,281 @@
+@import ../../styles/helpers
+
+.auction
+    display: flex
+    align-items: flex-start
+    flex-direction: column
+    +t
+        display: block
+
+.title
+    margin-right: auto
+    +body-1
+
+.link
+    padding: 6px 12px
+    border-radius: 14px
+    background: none
+    +button-2
+    color: #1d1d1d
+    //width: 47px;
+    //height: 16px;
+    font-family: 'DM Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 16px;
+    color: #777E91;
+    //transition: all .2s
+    //width: 100px
+    +m
+        //width: 80px
+        padding: 6px 12px
+    &:hover
+        color: var(--color-theme-primary)
+        outline: var(--color-gray-200) 1px solid
+        //outline: var(--color-theme-primary) 1px solid
+        //outline: var(--color-gray-700) 1px solid
+    &.active
+        //background: $pink
+        //background: $gold
+        background-color: var(--color-theme-primary)
+        color: white
+    &:not(:last-child)
+        margin-right: 8px
+
+.nav
+    display: flex
+    margin: 15px 0px
+    padding: 6px 25px
+    border-radius: 4px
+    +dark
+        border: 1px solid #ccc
+    +m
+        flex-wrap: wrap
+    +s
+        margin: 15px 0px
+        button
+            padding: 10px
+
+.info
+    margin: 40px 0
+    text-align: center
+    +body-2
+    color: $neutrals4
+    a
+        text-decoration: underline
+        font-weight: 500
+        color: $neutrals2
+        +dark
+            color: $neutrals8
+        &:hover
+            text-decoration: none
+
+
+.orderitem
+    border-radius: 4px
+    box-shadow: 0px 0px 3px #cccccc
+    border: 1px solid #cccccc
+    margin: 18px 0px
+    display: flex
+    flex-wrap: wrap
+    +s
+        margin: 0px 0px 20px 0px
+    .playerwrapper
+        width: 10%
+        min-width: 98px
+        height: 110px
+        +s
+            margin: auto;
+        img
+            height: 100%
+
+    .itemdetails
+        padding-left: 15px
+        flex: 1
+        display: flex
+        flex-direction: column
+        +m
+            font-size: 10px
+            padding-left: 1px
+            min-width: 270px
+            button, a
+                height: 30px
+                padding: 0px 10px
+                font-size: 10px
+        h4:first-of-type
+            min-width: 200px
+        .itemdetailsrow
+            display: flex
+            justify-content: space-between
+            padding: 15px 10px
+            div
+                text-align: center
+        .itemdetailsrow:first-of-type
+            border-bottom: 2px solid #9999999a
+
+.pagination
+    display: flex
+    justify-content: space-between
+    list-style: none
+    cursor: pointer
+    margin-top: 48px
+
+    a
+        cursor: pointer
+
+// a
+//     padding: 10px
+//     border-radius: 5px
+//     border: 1px solid #6c7ac9
+//     color: #6c7ac9
+
+.pagination__link
+    font-weight: bold
+
+// .pagination__link__active a
+//     color: #fff
+//     background: #6c7ac9
+
+.pagination__link__disabled a
+    color: rgb(198, 197, 202)
+    border: 1px solid rgb(198, 197, 202)
+    cursor: context-menu
+
+.pagination
+  display: flex
+  justify-content: space-between
+  list-style: none
+ 
+  margin-top: 48px
+
+  a
+    padding: 10px
+    border: 1px solid #000
+    color: #000
+    border-radius: 10px
+    cursor: pointer
+
+.pagination__link
+  font-weight: bold
+
+.pagination__link__active a
+  color: #1d1d1d
+  border-color: $pink
+
+.pagination__link__disabled a
+  color: #ccc
+  border: 1px solid #ccc
+  cursor: context-menu
+
+.loaderContent
+    width: 100%
+    position: fixed
+    height: 100vh
+    background: #d5d5d5e8
+    z-index: 9999
+    top: 0
+    left: 0
+    // bottom: 0
+    // right: 0
+    display: flex
+    align-items: center
+    justify-content: center
+
+
+.affiliateTable
+    font-family: Lato
+    //border-collapse: collapse
+    width: 100%
+    text-align: left
+    border-radius: 20px
+    +d 
+        overflow: scroll
+    +m
+        overflow: scroll
+    table
+        //border: 1px solid #9F9F9F
+        //border-collapse: separate
+        //border-spacing: 0 15px
+        border-radius: 20px
+        //tr
+            //&:nth-child(odd) 
+                //background: #F3F3F3
+                //background: #FCFCFD
+            //&:nth-child(even) 
+                //background: #DFDFDF
+                //background: #F5F5F5
+
+        thead
+            //border-radius: 10px
+            //background: #FCFCFD
+            //background: green
+            //background: red
+
+        th
+            //font-size: 16px;
+            //font-weight: 600;
+            //line-height: 34px;
+            //font-family: 'Poppins'
+            font-style: normal
+            //font-weight: 500
+            //font-size: 14px
+            //line-height: 24px
+            //color: #353945
+            color: var(--color-gray-900, #212529)
+            font-family: 'Source Sans 3'
+            font-size: 18px
+            font-weight: 700
+            line-height: 150%
+            padding: 13px 30px
+            //background: #000000
+            background: var(--color-gray-200, #E9ECEF)
+            //color: white
+            //width: 1012px
+            //height: 50px
+            //background: #FCFCFD
+            //background: green
+            //border-radius: 10px
+        th.start
+            border-top-left-radius: 10px
+            border-bottom-left-radius: 10px
+        th.end
+            border-top-right-radius: 10px
+            border-bottom-right-radius: 10px
+
+        td
+            //font-size: 16px
+            //font-weight: 600
+            //font-family: 'Poppins'
+            font-family: 'Source Sans 3'
+            font-style: normal
+            font-weight: 400
+            font-size: 20px
+            line-height: 150%
+            color: #141416
+            color: #1D1D1D
+            padding: 39px 30px
+            border-bottom: 1px solid var(--color-gray-400, #CED4DA)
+            span
+                color: $gold
+        td.start
+            border-top-left-radius: 10px
+            border-bottom-left-radius: 10px
+        td.end
+            border-top-right-radius: 10px
+            border-bottom-right-radius: 10px
+            img
+                max-width: 25px
+                height: 25px
+                margin-right: 5px
+        td.total
+            font-weight: 700
+
+        //th, td
+        //    padding: 13px 30px
+
+
+.dFlexAic
+    display: flex
+    align-items: center
+

@@ -1,0 +1,230 @@
+@import ../../styles/helpers
+
+.auction
+    display: flex
+    align-items: flex-start
+    flex-direction: column
+    +t
+        display: block
+
+.title
+    margin-right: auto
+    +body-1
+
+.link
+    padding: 6px 12px
+    border-radius: 14px
+    background: none
+    +button-2
+    color: #1d1d1d
+    transition: all .2s
+    width: 100px
+    &.active
+        background: $pink
+        color: white
+    &:not(:last-child)
+        margin-right: 8px
+
+.nav
+    display: flex
+    margin: 32px 0px
+    padding: 6px 25px
+    border-radius: 4px
+    +dark
+        border: 1px solid #ccc
+    +m
+        flex-wrap: wrap
+    +s
+        margin: 15px 0px
+        button
+            padding: 10px
+
+.info
+    margin: 40px 0
+    text-align: center
+    +body-2
+    color: $neutrals4
+    a
+        text-decoration: underline
+        font-weight: 500
+        color: $neutrals2
+        +dark
+            color: $neutrals8
+        &:hover
+            text-decoration: none
+
+
+.orderitem
+    border-radius: 4px
+    box-shadow: 0px 0px 3px #cccccc
+    border: 1px solid #cccccc
+    margin: 18px 0px
+    display: flex
+    flex-wrap: wrap
+    +s
+        margin: 0px 0px 20px 0px
+    .playerwrapper
+        width: 10%
+        min-width: 98px
+        height: 110px
+        +s
+            margin: auto;
+        img
+            height: 100%
+
+    .itemdetails
+        padding-left: 15px
+        flex: 1
+        display: flex
+        flex-direction: column
+        +m
+            font-size: 10px
+            padding-left: 1px
+            min-width: 270px
+            button, a
+                height: 30px
+                padding: 0px 10px
+                font-size: 10px
+        h4:first-of-type
+            min-width: 200px
+        .itemdetailsrow
+            display: flex
+            justify-content: space-between
+            padding: 15px 10px
+            div
+                text-align: center
+        .itemdetailsrow:first-of-type
+            border-bottom: 2px solid #9999999a
+
+
+
+// a
+//     padding: 10px
+//     border-radius: 5px
+//     border: 1px solid #6c7ac9
+//     color: #6c7ac9
+
+.pagination
+    display: flex
+    justify-content: center
+    flex-wrap: wrap
+    gap: 15px
+    list-style: none
+    margin-top: 48px
+    margin-bottom: 24px
+
+    a
+        padding: 10px
+        border: 2px solid #E6E8EC
+        color: #000
+        font-weight: 500
+        border-radius: 10px
+        cursor: pointer
+        border-radius: 30px
+
+        &.pagination__link__previous
+            padding: 10px 25px
+
+        &.pagination__link__next
+            padding: 10px 25px
+
+    li
+        display: flex
+        align-items: center
+
+.pagination__link
+    font-weight: bold
+
+.pagination_page
+    a
+        box-sizing: border-box
+        min-width: 40px
+        height: 40px
+        text-align: center
+        display: flex
+        justify-content: center
+        align-items: center
+        border-radius: 30px
+
+.pagination__link__active a
+    color: #A28A00
+    border-color: #A28A00
+    cursor: pointer
+
+.pagination__link__disabled a
+    color: #ccc
+    border: 2px solid #ccc
+    cursor: context-menu
+
+.loaderContent
+    width: 100%
+    position: fixed
+    height: 100vh
+    background: #d5d5d5e8
+    z-index: 9999
+    top: 0
+    left: 0
+    // bottom: 0
+    // right: 0
+    display: flex
+    align-items: center
+    justify-content: center
+
+
+.affiliateTable
+    font-family: Lato;
+    border-collapse: collapse;
+    width: 100%;
+    text-align: left
+    +d
+        overflow: scroll
+    +m
+        overflow: scroll
+    table
+        border: 1px solid #9F9F9F
+        //tr
+            //&:nth-child(odd)
+            //    background: #F3F3F3
+            //&:nth-child(even)
+            //    background: #DFDFDF
+
+        th
+            font-size: 16px
+            font-weight: 600
+            line-height: 34px
+            background: #000000
+            color: white
+        td
+            font-size: 16px
+            font-weight: 600
+            color: #1D1D1D
+            span
+                color: #DB3A78
+            img
+                max-width: 25px
+                margin-right: 5px
+        td.total
+            font-weight: 700
+
+        th, td
+            padding: 13px 30px
+
+
+.dFlexAic
+    display: flex
+    align-items: center
+
+.heading
+    display: flex
+    justify-content: space-between
+    align-items: center
+    margin-top: 5px
+    select
+        padding: 8px 30px 8px 2px
+
+.profileImage
+    object-fit: cover
+    border-radius: 50%
+    height: 16px
+    width: 16px
+

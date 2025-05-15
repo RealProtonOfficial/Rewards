@@ -1,0 +1,294 @@
+@import ../../styles/helpers
+
+.footer
+    position: relative
+    bottom: 0
+    //background-color: #24324a
+    //background-color: #000
+    background-color: var(--color-theme-primary)
+    +dark
+        // background: #10CFC9
+
+.container
+    padding: 0px 75px
+    box-sizing: border-box
+    +t
+        padding: 0 30px
+    +m
+        padding: 0 10px
+
+.row
+    display: flex
+    justify-content: space-between
+    align-items: center
+    //padding: 60px 0 25px
+    padding: 30px 0px
+    //border-bottom: 1px solid $yellow !important
+
+    // border-bottom: 1px solid $neutrals6
+    // border-top: 1px solid $neutrals6
+    +t
+        padding: 48px 0 0px
+        flex-direction: column
+        text-align: center
+    +m
+        display: block
+        padding: 44px 0 48px
+    +dark
+        border-color: $neutrals3
+    +mobileDrawer
+        padding: 30px 5px 10px 5px
+
+.selectFooter
+    display: flex
+    align-items: center
+    +m
+        flex-direction: column
+        text-align: center
+
+.col
+    &:first-child
+        flex-grow: 1
+        // padding-right: 32px
+        +t
+            position: relative
+            // margin-bottom: 32px
+            padding: 0
+        +m
+            margin-bottom: 10px
+    &:nth-child(2)
+        display: flex
+        flex-shrink: 0
+        width: 352px
+        +t
+            margin-bottom: 32px
+        +m
+            width: auto
+            display: block
+            border-width: 1px 0
+            border-style: solid
+            margin-bottom: 20px
+            border-color: $neutrals6
+            +dark
+                border-color: $neutrals3
+        +s
+            margin-bottom: 0px
+            border-bottom: none
+    &:nth-child(3)
+        flex-shrink: 0
+        width: 384px
+        padding-left: 32px
+        +d
+            width: 304px
+        +t
+            width: 100%
+            padding: 0
+
+.logo
+    display: inline-block
+    img
+        //width: 128px
+        //+m
+        //    width: 215px
+        +s
+            margin-bottom: 0px
+        +t
+            margin-bottom: 0px
+
+.info
+    max-width: 256px
+    +body-1
+    +d
+        font-size: 16px
+
+.version
+    display: flex
+    align-items: center
+    margin-top: 24px
+    +t
+        position: absolute
+        top: 5px
+        right: 0
+        margin: 0
+
+.details
+    margin-right: 16px
+    +caption-2
+    +m
+        margin-right: 10px
+
+.category
+    color: $newblack
+    font-weight: 700 !important
+    margin-bottom: 40px
+    +t
+        margin-block-end: 24px
+
+.text
+    margin-bottom: 24px
+
+.foot
+    display: flex
+    justify-content: space-between
+    padding: 16px 0
+    // border-top: 1px solid $newblack
+    +caption-2
+    +m
+        display: block
+        padding: 24px 0 32px
+
+.copyright
+    //font-family: 'Poppins'
+    //font-family: $poppinsFont
+    +font-poppins
+    font-style: normal
+    color: #fff
+    //padding: 15px 0px
+    //font-weight: 400
+    font-size: 16px
+    //line-height: 24px
+    text-align: center
+    text-transform: capitalize
+    text-align: center
+    +m
+        text-align: center
+
+.note
+    +m
+        display: none
+    a
+        margin-left: 16px
+        font-weight: 600
+        color: $blue
+        transition: color .2s
+        &:hover
+            color: darken(#766CCC, 10)
+
+.input
+    width: 60%
+    min-width: 100px
+    height: 42px
+    padding: 0 30px 0 14px
+    border-radius: none
+    background: transparent
+    border-bottom: 2px solid $neutrals4
+    +caption-1
+    color: $neutrals2
+    transition: border-color .2s
+    +dark
+        border-bottom: 2px solid $newblack
+        color: $newblack
+    &:focus
+        border-color: $neutrals3
+    +placeholder
+        color: $newblack
+
+.subscribeBtn
+    // border: 2px solid #F31B4F
+    border: 2px solid $newblack
+    transition: 0.6s
+    border-radius: 25px
+    // border-image-source: linear-gradient(to top, #326eed, #e1225d)
+    background: transparent
+    color: $newblack
+    width: 120px
+    padding: 10px 0px
+    text-transform: uppercase
+    cursor: pointer
+    transition: 0.2s ease-in-out
+    font-weight: bold
+    &:hover
+        border: 2px solid $newblack
+        color: $newyello
+        background: $newblack
+
+.footerLinks
+    a
+        font-weight: 900
+        color: #231F20
+    a:not(:last-child)
+        margin-bottom: 15px
+
+.terms
+    display: inline-block
+    vertical-align: -webkit-baseline-middle
+    vertical-align: middle
+    label
+        color: $newblack
+
+
+.termsBox
+    cursor: pointer
+    width: 20px
+    height: 18px
+    margin-right: 10px
+    &:checked
+        background-color: $secondary
+
+
+.icons_wrapper
+    +m
+        tex
+
+.visa_mastercard_logo
+    max-width: 80px
+    margin-bottom: 1rem
+
+.social_media_icons
+    // fill: $green
+    cursor: pointer
+    width: 27px
+    height: 27px
+    opacity: .85
+    &:hover
+        box-shadow: 0px 0px 2px #2d2d2d
+        opacity: 1
+
+.social_media_icon_wrap
+    text-align: end
+    button
+        margin-right: 20px
+    &:last-child
+        margin-right: 0
+    +m
+        text-align: left
+
+.title
+    //font-family: 'Poppins'
+    //font-family: $poppinsFont
+    +font-poppins
+    color: #fff
+    text-decoration: none
+    font-weight: 300
+    font-size: 16px
+    line-height: 24px
+    font-weight: 300
+    font-size: 16px
+    line-height: 24px
+    text-align: center
+    text-transform: capitalize
+    padding-right: 10px
+    &:hover
+        cursor: pointer
+    +m
+        //padding-bottom: 10px
+    a
+        color: #fff
+
+.media
+    white-space: nowrap 
+    +m
+        margin-right: 25px
+        margin-bottom: 30px
+        margin-top: 30px
+    button
+        background: transparent
+
+//@media only screen and (max-width: 480px)
+//    .logo
+//        display: inline-block
+//        img
+//            +m
+//                width: 100px
+//                margin-top: 18px
+//                margin-bottom: 36px
