@@ -106,9 +106,10 @@ affiliate_referrals=# \dt
 --------+---------------------+-------+----------
  public | Referees            | table | postgres
  public | ReferralManagements | table | postgres
+ public | Rewards             | table | postgres
  public | SequelizeMeta       | table | postgres
  public | Users               | table | postgres
-(4 rows)
+(5 rows)
 ```
 
 Show table information

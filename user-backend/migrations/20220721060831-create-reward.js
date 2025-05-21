@@ -39,19 +39,19 @@ module.exports = {
                 allowNull: false
                 , type: Sequelize.DATE
             }
-            , 'status': {
+            , status: {
                 type: Sequelize.STRING
                 , allowNull: true
             }
-            , 'transferId': {
+            , transferId: {
                 type: Sequelize.STRING
                 , allowNull: true
             }
-            , "adminReceived", {
+            , adminReceived: {
                 type: Sequelize.BOOLEAN
                 , default: false
             }
-            , "reservationId", {
+            , reservationId: {
                 type: Sequelize.STRING
                 , default: false
             }

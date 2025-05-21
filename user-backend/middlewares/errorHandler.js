@@ -1,31 +1,12 @@
-const responseHelper = require('./response');
-const logHelper = require('./logger');
+const { validationResult } = require('express-validator');
 
-// eslint-disable-next-line no-unused-vars
-function errorHandler(err, req, res, next) {
-  logHelper.error(err.message);
+module.exports.requestValidator = (req, res, next) => {
+  
+  const errors = validationResult(req);
 
-  if (typeof err === 'string') {
-    // custom application error
-    return responseHelper.badRequestErrorResponse(res, err);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array()[0].msg});
   }
-
-  if (err.name === 'ValidationError') {
-    // mongoose validation error
-    return responseHelper.badRequestErrorResponse(res, err.message);
-  }
-
-  if (err.name === 'UnauthorizedError') {
-    // jwt authentication error
-    return responseHelper.authorizationErrorResponse(res, err.message);
-  }
-
-  if (err.message === 'Not allowed by CORS') {
-    // jwt authentication error
-    return responseHelper.accessErrorResponse(res, err.message);
-  }
-
-  return responseHelper.serverErrorResponse(res);
-}
-
-module.exports = errorHandler;
+  next();
+};
