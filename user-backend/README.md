@@ -1,4 +1,4 @@
-# RealSplit User Backend
+# Affiliate Referral Rewards User Backend
 
 ## Run `npm install` to install the packages
 

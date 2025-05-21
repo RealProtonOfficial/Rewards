@@ -30,14 +30,12 @@ const getTemplate = (filename, body) => {
 const collection = {
 
     verification: body => ({
-          //subject: 'RealSplit™ | Email Verification'
-          subject: 'RealSplit™ | Account Activation'
-        //, html: getTemplate('verify-account.html', body) // previous/alternative design
+          subject: 'Account Activation'
         , html: getTemplate('account-activation.html', body)
     })
 
     , resetPassword: body => ({
-          subject: 'RealSplit™ | Reset Password'
+          subject: 'Reset Password'
         , html: getTemplate('reset-password.html', body)
     })
 
