@@ -1,0 +1,68 @@
+{
+  "name": "affiliate-referrals-user-backend",
+  "version": "1.0.0",
+  "description": "```\r $ npm init\r ```",
+  "homepage": "https://gitlab.com/wearefuturetech/white-label-marketplace/affiliate-referrals-user-backend#readme",
+  "bugs": {
+    "url": "https://gitlab.com/wearefuturetech/white-label-marketplace/affiliate-referrals-user-backend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/wearefuturetech/white-label-marketplace/affiliate-referrals-user-backend.git"
+  },
+  "license": "UNLICENSED",
+  "author": "Dermot",
+  "type": "commonjs",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "start": "node ./bin/www && node app.js",
+    "dev": "nodemon ./bin/www && nodemon app.js",
+    "test": "node_modules/mocha/bin/mocha tests/data --timeout 10000",
+    "migrate": "npx sequelize-cli db:migrate --env development",
+    "undo-migrate": "npx sequelize-cli db:migrate:undo:all --env development",
+    "create-migrate": "npx sequelize-cli  migration:generate --name",
+    "pretest": "node_modules/eslint/bin/eslint.js . --fix",
+    "cron": "node jobs/index.js",
+    "seed": "npx sequelize-cli db:seed:all --env development"
+  },
+  "_moduleAliases": {
+    "models": "models/",
+    "utilities": "utilities/",
+    "middlewares": "middlewares/",
+    "controllers": "controllers/"
+  },
+  "dependencies": {
+    "@sendgrid/mail": "^7.4.6",
+    "app-root-path": "^3.0.0",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.2",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "ejs": "^3.0.2",
+    "express": "^4.17.1",
+    "express-validator": "^6.12.2",
+    "helmet": "^3.23.3",
+    "ioredis": "^4.28.5",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "pg": "^8.7.1",
+    "sequelize": "^6.37.3",
+    "shortid": "^2.2.16",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.4.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "mocha": "^9.1.0",
+    "sequelize-cli": "^6.6.1"
+  }
+}
