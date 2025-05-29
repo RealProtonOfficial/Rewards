@@ -1,0 +1,283 @@
+// For Debugging
+$outline: red 0px solid
+
+// Screen sizes
+$mobile-max: 480px
+$tablet-max: 1024px
+$desktop-min: 1024px
+
+// Font sizes
+$mobile-font-size: 18px
+$tablet-font-size: 20px
+$desktop-font-size: 21px
+
+// H1 Font sizes
+$mobile-font-size-h1: 32px
+$tablet-font-size-h1: 36px
+
+// H2 Font sizes
+$mobile-font-size-h2: 30px
+$tablet-font-size-h2: 36px
+$desktop-font-size-h2: 48px
+
+// H2 (Swal Alert) Popup Font sizes
+$mobile-dialog-font-size-h2: 20px
+$tablet-dialog-font-size-h2: 24px
+$desktop-dialog-font-size-h2: 24px
+
+// Padding
+$mobile-padding-top: 30px
+$mobile-padding-left: 30px
+
+$tablet-padding-top: 45px
+$tablet-padding-left: 45px
+
+$desktop-padding-top: 40px
+$desktop-padding-left: 60px
+
+$padding-top: 60px
+$padding-left: 110px
+
+$maxWidth: $tablet-max
+$headerMaxWidth: 1500px
+
+$main-padding-top: 100px
+$main-padding-top-mobile: 70px
+
+$paddingTop: 110px
+$color-negro: #000
+$color-red: red
+
+// colors
+$color-gold: #A28A00
+$color-primary: #025BC9
+
+$sourceSansFont: 'Source Sans 3', sans-serif
+$dmSansFont: 'DM Sans', sans-serif
+$poppinsFont: 'Poppins', sans-serif
+$interFont: 'Inter', sans-serif
+$varsityFont: 'varsityteam',sans-serif
+$brothersFont: 'Temeraire', sans-serif
+$latoFont: 'Lato', sans-serif
+
+$desktopFontSize: 16px
+
+// fonts
+=font-source-sans
+    //font-family: 'Source Sans 3', sans-serif
+    font-family: $sourceSansFont
+=font-dm-sans
+    font-family: 'DM Sans', sans-serif
+=font-poppins
+    font-family: 'Poppins', sans-serif
+=font-inter
+    font-family: 'Inter', sans-serif
+=font-varsity
+    font-family: 'varsityteam',sans-serif
+=font-brothers
+    font-family: 'Temeraire', sans-serif
+=font-lato
+    font-family: 'Lato', sans-serif
+
+// font sizes
+=font-size-desktop
+    font-size: 16px
+    //font-size: $sourceSansFont
+    //font-size: $fontSizeDesktop
+    font-size: $desktopFontSize
+
+
+$gold: #A28A00
+$white: #ffffff
+$blue: #417ED9
+$blue-light: #4BC9F0
+$dark-blue: #0F284D
+$purple: #9757D7
+$purple-light: #CDB4DB
+$pink: #EE1F78
+$light-pink: #377E40
+$placeholdertext: #666666
+$asphalt: #E4D7CF
+$yellow: #FFD700 // #FFD166
+$secondary: #A28A00 // #F579AE
+$lightgreen: #ebffed
+$green : #377e40
+$darkgreen : #204f26
+$neutrals1: #171b1e
+$bordergrey: #AEAEAE
+$neutrals2: #23262F
+$neutrals3: #353945
+$neutrals4: #777E90
+$neutrals5: #B1B5C3
+$neutrals6: #E6E8EC
+$neutrals7: #F4F5F6
+$neutrals8: #FCFCFD
+$darktext: #141414
+$newyello: #A28A00
+$newblack: #231F20
+$black: #000
+
+// media queries
+=w
+    @media only screen and (max-width: "1419px")
+        @content
+=x
+    @media only screen and (max-width: "1339px")
+        @content
+=d
+    @media only screen and (max-width: "1179px")
+        @content
+=t
+    @media only screen and (max-width: "1023px")
+        @content
+=m
+    @media only screen and (max-width: "767px")
+        @content
+=a
+    @media only screen and (max-width: "639px")
+        @content
+=s
+    @media only screen and (max-width: "474px")
+        @content
+=vs
+    @media only screen and (max-width: "374px")
+        @content
+
+=mobileDrawer
+    @media only screen and (max-width: "931px")
+        @content
+
+// typography
+=body-1
+    font-size: 18px
+    line-height: (32/24)
+    letter-spacing: -.01em
+
+=body-bold-1
+    font-size: 24px
+    line-height: (32/24)
+    font-weight: 600
+    letter-spacing: -.01em
+
+=body-2
+    font-size: 16px
+    line-height: (24/16)
+
+=body-bold-2
+    font-size: 16px
+    line-height: (24/16)
+    font-weight: 500
+
+=caption-1
+    font-size: 14px
+    line-height: (24/14)
+
+=caption-bold-1
+    font-size: 14px
+    line-height: (24/14)
+    font-weight: 500
+
+=caption-2
+    font-size: 12px
+    line-height: (20/12)
+
+=caption-bold-2
+    font-size: 12px
+    line-height: (20/12)
+    font-weight: 600
+
+=hairline-1
+    font-size: 16px
+    line-height: 1
+    font-weight: 700
+    text-transform: uppercase
+
+=hairline-2
+    font-size: 12px
+    line-height: 1
+    font-weight: 700
+    text-transform: uppercase
+
+=button-1
+    font-size: 16px
+    font-weight: 700
+    line-height: 1
+
+=button-2
+    font-size: 14px
+    line-height: (16/14)
+    // font-weight: 700
+
+=whiteSection
+    background: $white
+    width: 100%
+    padding: 50px 0px
+
+=greenSection
+    background: $newblack
+    width: 100%
+    padding: 50px 0px
+//triangle
+=arr($width, $height, $bg, $direction)
+    width: 0px
+    height: 0px
+    border-style: solid
+    @if $direction == t
+        border-width: 0 $width / 2 + px $height + px $width / 2 + px
+        border-color: transparent transparent $bg transparent
+    @if $direction == r
+        border-width: $height / 2 + px 0 $height / 2 + px $width + px
+        border-color: transparent transparent transparent $bg
+    @if $direction == b
+        border-width: $height + px $width / 2 + px 0 $width / 2 + px
+        border-color: $bg transparent transparent transparent
+    @if $direction == l
+        border-width: $height / 2 + px $width + px $height / 2 + px 0
+        border-color: transparent $bg transparent transparent
+    @if $direction == tl
+        border-width: $height + px $width + px 0 0
+        border-color: $bg transparent transparent transparent
+    @if $direction == tr
+        border-width: 0 $width + px $height + px 0
+        border-color: transparent $bg transparent transparent
+    @if $direction == br
+        border-width: 0 0 $height + px $width + px
+        border-color: transparent transparent $bg transparent
+    @if $direction == bl
+        border-width: $width + px 0 0 $height + px
+        border-color: transparent transparent transparent $bg
+// example
+// +arr(500,50, #000, l)
+// +arr(500,50, #000, bl)
+
+// placeholder
+=placeholder
+    &::placeholder
+        @content
+
+// media query width
+=r($width)
+    @media only screen and (max-width: $width+ "px")
+        @content
+
+=rmin($width)
+    @media only screen and (min-width: $width+ "px")
+        @content
+
+// theme
+=dark
+    @at-root :global(.dark-mode) &
+        @content
+
+=dark-body
+    @at-root .dark-mode
+        @content
+
+=dark-common
+    @at-root .dark-mode &
+        @content
+
+//@at-root
+//:root
+//    --site-width: 1130px
+//    --color-pricipal: #{$color-red};

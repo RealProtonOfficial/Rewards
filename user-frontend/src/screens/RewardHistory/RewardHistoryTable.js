@@ -130,19 +130,6 @@ const RewardHistoryTable = (props) => {
                 : null
             */}
 
-            {/*
-            <div className = { cn("table-heading", styles.heading) }>
-                <h3>History List</h3>
-                <select onChange={handleSortValues}>
-                    <option value="" selected disabled hidden>Sort by:</option>
-                    <option value="">All</option>
-                    <option value="1">Level 1</option>
-                    <option value="2" >Level 2</option>
-                    <option value="3">Level 3</option>
-                </select>
-            </div>
-            */}
-
             {
                 rewardData?.length > 0
                 &&
@@ -166,46 +153,6 @@ const RewardHistoryTable = (props) => {
                                 style = {{
                                     backgroundColor: "#FFF"
                                 }}>
-
-                                {/* Hard Coded examples for UI development
-                                <tr key="-1">
-                                    <td>
-                                        <div>
-                                            <img
-                                                //className = { cn("mr-5", styles.profileImage) }
-                                                src="/images/userplaceholder.svg" alt="Avatar"
-                                                style = {{ paddingRight:"15px" }}
-                                                />
-                                            User Name
-                                      </div>
-                                    </td>
-                                    <td>Asset Name</td>
-                                    <td>1</td>
-                                    <td>15/02/2024</td>
-                                    <td>03:33 P</td> 
-                                    <td>$5000.00</td>
-                                    <td className = { referredAffiliatesStyles.total }>$25.00</td>
-                                </tr>
-
-                                <tr key="-2">
-                                    <td>
-                                        <div>
-                                            <img
-                                                //className = { cn("mr-5", styles.profileImage) }
-                                                src="/images/userplaceholder.svg" alt="Avatar"
-                                                style = {{ paddingRight:"15px" }}
-                                                />
-                                            User Name
-                                      </div>
-                                    </td>
-                                    <td>Asset Name</td>
-                                    <td>2</td>
-                                    <td>15/02/2024</td>
-                                    <td>03:33 P</td> 
-                                    <td>$5000.00</td>
-                                    <td className = { referredAffiliatesStyles.total }>$25.00</td>
-                                </tr>
-                                */}
 
                                 {
                                     rewardData?.length

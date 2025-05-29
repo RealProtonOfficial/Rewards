@@ -86,36 +86,25 @@ const ReferralLink = () => {
                                     , marginBottom: 'auto'
                                 }}>
                                 <img
-                                        //src = '/images/icons/refer-icon.png'
-                                        //src = '/images/icons/affiliate-network-ui-svgrepo-com.svg'
-                                        //src = '/images/icons/PngItem_5808369.png'
-                                        //src = '/images/icons/referrals-icon-2.jpg'
-                                        //src = '/images/icons/360_F_231327619_BAkaQuBgSdmfQyu5HEruBaEL8qtmK95L.jpg'
-                                        //src = '/images/icons/noun-affiliate-4621499.svg'
-                                        src = '/images/icons/connected-people-icon.svg'
-                                        alt = 'Connected People Icon'
-                                        style = {{
-                                            height: '70px'
-                                            //, maxWidth: '40px'
-                                            , verticalAlign: 'middle'
-                                            , margin: 'auto'
-                                            //, filter: 'unset'
-                                        }}
-                                        />
+                                    src = '/images/icons/connected-people-icon.svg'
+                                    alt = 'Connected People Icon'
+                                    style = {{
+                                        height: '70px'
+                                        //, maxWidth: '40px'
+                                        , verticalAlign: 'middle'
+                                        , margin: 'auto'
+                                        //, filter: 'unset'
+                                    }}
+                                    />
                             </div>
                         </div>
 
                         <div
                             className = 'subtitle'
-                            //style = {{
-                            //    paddingTop: "30px"
-                            //    , paddingBottom: "30px"
-                                //, margin: 'auto 50px'
-                            //}}
                             >
 
                             <p>
-                                Share the wealth! Invite your friends to join RealSplit using your referral link (shown below) and <Link to="/reward-history" style = {{ cursor: "pointer" }}>earn a commission</Link> on the fees from their transactions.
+                                Share the wealth! Invite your friends to join using your referral link (shown below) and <Link to="/reward-history" style = {{ cursor: "pointer" }}>earn a commission</Link> on the fees from their transactions.
                             </p>
 
                             <p
@@ -124,19 +113,11 @@ const ReferralLink = () => {
                                     //, margin: 'auto 50px'
                                 }}
                                 >
-                                Anyone can become an affiliate of RealSplit.
+                                Anyone can become an affiliate.
                                 Simply share your referral link with your friends and when they sign up, using your referral link, they will be connected to you as a referree and you will earn a percentage of the fees earned from their transactions.
                             </p>
                         </div>
 
-                        {/*
-                        <div
-                            className = { styles.referWrapper }
-                            //style = {{
-                            //    padding: '40px'
-                            //}}
-                            >
-                        */}
 
                             <div
                                 /*
@@ -263,10 +244,6 @@ const ReferralLink = () => {
                                 </div>
                             </div>
 
-                        {/*
-                        </div>
-                        */}
-                        
                     </form>
 
                 </div>

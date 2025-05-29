@@ -7,13 +7,8 @@ import {
     useSelector
     //, useDispatch
 } from 'react-redux';
-//import Web3 from "web3";
-//import ReactPlayer from "react-player";
-//import Swal from 'sweetalert2';
-//import { current_datetime, PopUpAlert } from "../../controller/utils";
 import ReactPaginate from "react-paginate";
 import moment from "moment";
-//import { CircularProgress } from "@material-ui/core";
 import { CircularProgress } from '@mui/material';
 import { NAMES_CONSTANTS } from '../../constants';
 
@@ -26,19 +21,13 @@ const AffiliateTable = (props) => {
 
     const rowsPerPage = 10;
     const [affiliates, setAffiliates] = useState([]);
-    //const [params, setParams] = useState({ limit: 10, page: 1, type: "active", level: '1' });
     const [params, setParams] = useState({ limit: rowsPerPage, page: 1, type: "active" });
     const [count, setCount] = useState(0);
-    //const datetime = new Date();
-    //const { index } = props;
-    //const value = useSelector((state) => state.counter.euroValue);
     const [loaderShow, setLoaderShow]=useState(false)
     const [activeIndex, setActiveIndex] = useState(0);
 
     const getAllAssets = async (index) => {
-    //const getAllAssets = async (activeIndex) => {
         console.log('getAllAssets(index)', index);
-        //console.log('index', index);
 
         setLoaderShow(true);
 

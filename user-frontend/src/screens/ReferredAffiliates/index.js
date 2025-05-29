@@ -1,11 +1,13 @@
 import React from "react";
 import styles from './ReferredAffiliates.module.sass';
-import { useHistory, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import AffiliateTable from "./AffiliateTable";
 import { NAMES_CONSTANTS } from '../../constants';
 
 const ReferredAffiliates = (props) => {
     console.log('ReferredAffiliates()', props);
+
+    const navigate = useNavigate();
 
     console.log('props.userDetails = ', props.userDetails);
     let userId;
@@ -58,13 +60,13 @@ const ReferredAffiliates = (props) => {
                         className = { "subtitle" }
                         >
                         <p>
-                            People you have referred to RealSplit using your <Link to="/my-referral-link" style = {{ cursor: "pointer" }}>referral link</Link>.
+                            People you have referred using your <Link to="/my-referral-link" style = {{ cursor: "pointer" }}>referral link</Link>.
                         </p>
 
                         <p>
-                            Anyone can be an affiliate (referrer) at RealSplit.
+                            Anyone can be an affiliate (referrer).
                             Simply share your unique referral link with your contacts and when they sign up, using your link and buy splits you will earn a commission on the fees from their transactions.
-                            Furthermore, when the person you referred (your referee) refers others to RealSplit, you will earn a commission on their purchases too.
+                            Furthermore, when the person you referred (your referee) refers others, you will earn a commission on their purchases too.
                             Rewards are earned on up to 3 levels of referral connections.
                         </p>
                     </div>
@@ -94,7 +96,7 @@ const ReferredAffiliates = (props) => {
                                 className = 'primary'
                                 //onClick = { () => clickLogin() }
                                 //onClick={() => history.push('/login')}
-                                onClick={() => props.chooseWalletType()}
+                                onClick={() => navigate('/login')}
                                 >
                                 Login
                             </button>

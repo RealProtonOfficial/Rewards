@@ -59,7 +59,6 @@ const RewardHistory = () => {
                             display: 'flex'
                             , flexDirection: 'row'
                             , flexWrap: 'wrap'
-                            //, justifyContent: 'space-between'
                             , justifyContent: 'flex-start'
                         }}>
                         <div style = {{ marginTop: 'auto', marginBottom: 'auto' }}>
@@ -75,21 +74,14 @@ const RewardHistory = () => {
                                 , marginBottom: 'auto'
                             }}>
                             <img
-                                    //src = '/images/icons/dollar-circle_4.svg'
-                                    //src = '/images/icons/rewards-iconscout.svg'
-                                    //src = '/images/icons/noun-financial-reward-3817956.svg'
-                                    //src = '/images/icons/reward-record.svg'
-                                    src = '/images/icons/earn-money-scratch.svg'
-                                    alt = 'Earn Money Icon'
-                                    style = {{
-                                        //width: '50px'
-                                          height: '70px'
-                                        //, maxWidth: '40px'
-                                        , verticalAlign: 'middle'
-                                        , margin: 'auto'
-                                        //, filter: 'var(--filter-theme-primary)'
-                                    }}
-                                    />
+                                src = '/images/icons/earn-money-scratch.svg'
+                                alt = 'Earn Money Icon'
+                                style = {{
+                                      height: '70px'
+                                    , verticalAlign: 'middle'
+                                    , margin: 'auto'
+                                }}
+                                />
                         </div>
                     </div>
 
@@ -100,7 +92,6 @@ const RewardHistory = () => {
                     </div>
 
                     <div
-                        //className = { styles.wrapper }
                         className = "flex-container"
                         style = {{ marginTop: '30px' }}
                         >

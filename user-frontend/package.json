@@ -1,0 +1,63 @@
+{
+  "name": "referral-rewards-user-frontend",
+  "version": "1.0.0",
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "bugs": {
+    "url": "https://gitlab.com/wearefuturetech/white-label-marketplace/referral-rewards-user-frontend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/wearefuturetech/white-label-marketplace/referral-rewards-user-frontend.git"
+  },
+  "license": "UNLICENSED",
+  "author": "Dermot",
+  "sourceType": "module",
+  "main": "index.js",
+  "build": "npm build",
+  "clean": "rm -rf node_modules",
+  "reinstall": "npm run clean && npm install",
+  "rebuild": "npm run clean && npm install && npm run build",
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^7.1.0",
+    "@mui/styles": "^6.4.8",
+    "@mui/icons-material": "^7.1.0",
+    "@reduxjs/toolkit": "^2.7.0",
+    "axios": "^1.8.4",
+    "classnames": "^2.5.1",
+    "moment": "^2.30.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-paginate": "^8.3.0",
+    "react-router-dom": "^7.5.1",
+    "react-redux": "^9.2.0",
+    "react-share": "^5.2.2",
+    "sweetalert2": "^11.19.1"
+  },
+  "scripts": {
+    "start": "react-app-rewired start --openssl-legacy-provider",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "react-app-rewired": "^2.2.1",
+    "react-scripts": "^5.0.1",
+    "process": "^0.11.10",
+    "buffer": "^6.0.3",
+    "sass": "^1.87.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

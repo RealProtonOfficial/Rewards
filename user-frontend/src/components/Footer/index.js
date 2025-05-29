@@ -2,40 +2,20 @@ import React, { useState, useEffect } from 'react';
 
 import { Link } from "react-router-dom";
 import styles from "./Footer.module.sass";
-import axios from 'axios';
-import { PopUpAlert } from "../../controller/utils";
-import SocialIcons from "../SocialIcons";
 
 const menuItems = [
     {
         title: "",
         menu: [
             {
-                title: "About Us"
-                , url: "/About"
+                title: "Login"
+                , url: "/login"
             }
-            , {
-                title: "News"
-                , url: "/news"
-            }
-            , {
-                title: "Contact Us"
-                , url: "/contactus"
+            ,{
+                title: "Register"
+                , url: "/register"
             }
         ]
-    }
-];
-
-const legalLinks = [
-    {
-        title: "Terms & Conditions"
-        , url: "/terms-and-conditions"
-        , target: '_blank'
-    }
-    , {
-        title: "Privacy Policy"
-        , url: "/privacy-policy"
-        , target: '_blank'
     }
 ];
 
@@ -43,9 +23,14 @@ const Footer = () => {
 
     return (
         <footer
-            id = 'realsplit-footer'
-            className = { styles.footer }
+            id = 'footer'
+            //className = { styles.footer }
+            style = {{
+                border: 'blue 1px solid'
+            }}
             >
+
+            Footer
             <div
                 style = {{
                     padding: '0px 0px 0px 0px'
@@ -99,7 +84,7 @@ const Footer = () => {
                                                         target = '_blank'
                                                         style = {{
                                                               padding: '5px 0px'
-                                                            , color: 'var(--color-gray-white, var(--White, #FFF))'
+                                                            //, color: 'var(--color-gray-white, var(--White, #FFF))'
                                                             //, fontFamily: 'Source Sans 3'
                                                             , fontFamily: '"Poppins", sans-serif'
                                                             , fontSize: '20px'
@@ -114,7 +99,7 @@ const Footer = () => {
                                                         to = { menuItem.url }
                                                         style = {{
                                                               padding: '5px 0px'
-                                                            , color: 'var(--color-gray-white, var(--White, #FFF))'
+                                                            //, color: 'var(--color-gray-white, var(--White, #FFF))'
                                                             //, fontFamily: 'Source Sans 3'
                                                             , fontFamily: '"Poppins", sans-serif'
                                                             , fontSize: '20px'
@@ -136,67 +121,6 @@ const Footer = () => {
                 </div>
             </div>
 
-            <div>
-                <div
-                    //className="container"
-                    style = {{
-                         display: 'flex'
-                        , justifyContent: 'center'
-                        , alignItems: 'center'
-                        , paddingTop: '20px'
-                        , paddingBottom: '20px'
-                    }}
-                    >
-                    {
-                        legalLinks.map(legalLink =>
-                            {
-                                return (
-                                    <div
-                                        key = { legalLink.url }
-                                        className = { styles.title }
-                                        style = {{
-                                        //    flexGrow: '1'
-                                            padding: '0px 17px'
-                                        }}
-                                        >
-                                        <Link
-                                            className = { styles.logo }
-                                            to = { legalLink.url }
-                                            target = { legalLink.target ? legalLink.target : '' }
-                                            style = {{
-                                                  padding: '5px 0px'
-                                                , color: 'var(--color-gray-white, var(--White, #FFF))'
-                                                //, fontFamily: 'Source Sans 3'
-                                                , fontFamily: '"Poppins", sans-serif'
-                                                , fontSize: '18px'
-                                                , fontStyle: 'normal'
-                                                //, fontWeight: '700'
-                                                , lineHeight: '150%'
-                                                , characterSpacing: '-1px'
-                                            }}
-                                            >
-                                            { legalLink.title }
-                                        </Link>
-                                    </div>
-                                )
-                            }
-                        )
-                    }
-                </div>
-            </div>
-
-            <div>
-                <div
-                    style = {{
-                        padding: '20px 20px 50px 20px'
-                    }}
-                    >
-                    <div className= { styles.copyright }>
-                        Copyright &copy; RealSplit™, 2023
-                    </div>
-                </div>
-            </div>
-            
         </footer>
     );
 };
