@@ -1,0 +1,6 @@
+user-frontend/node_modules/
+user-backend/node_modules/
+user-frontend/.env
+user-backend/.env
+user-frontend/package-lock.json
+user-backend/package-lock.json
