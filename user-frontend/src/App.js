@@ -397,6 +397,7 @@ function App() {
         } catch (err) {
 
             console.log('err = ', err);
+        }
 
     }; // fetchRegister()
 
@@ -704,7 +705,7 @@ function App() {
                             >
                             <ReferralLink />
                         </Page>
-                    } /> {/* Renamed from path = "/refer-and-earn" <Page><ReferAndEarn /></Page> */}
+                    } />
                 
                 <Route
                     exact path = "/referred-affiliates"

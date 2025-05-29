@@ -90,7 +90,6 @@ const Register = props => {
                             <input
                                 type = "text"
                                 name = "firstName"
-                                ref = { firstNameRef }
                                 style = {{ width: '100%' }}
                                 placeholder = "First Name"
                                 />
@@ -110,7 +109,6 @@ const Register = props => {
                             <input
                                 type = "text"
                                 name = "lastName"
-                                ref = { lastNameRef }
                                 style = {{ width: '100%' }}
                                 placeholder = "Last Name"
                                 />
@@ -131,7 +129,6 @@ const Register = props => {
                                 type = "text"
                                 name = "username"
                                 //value = 'service.account@wearefuturetech.com'
-                                ref = { emailRef }
                                 style = {{ width: '100%' }}
                                 placeholder = "name@email.com"
                                 onKeyDown = {(e) => props.keyDownUsername(e)}
@@ -154,7 +151,6 @@ const Register = props => {
                         <div className = { "input-box" }>
                             <input
                                 type = { registerPasswordVisibility ? "text" : "password" }
-                                ref = { registerPasswordRef }
                                 style = {{ width: '100%' }}
                                 //name = "registerpassword"
                                 name = "password"
@@ -200,7 +196,6 @@ const Register = props => {
                             <input
                                 //type = "password"
                                 type = { repeatRegisterPasswordVisibility ? "text" : "password" }
-                                ref = { repeatPasswordRef }
                                 style = {{ width: '100%' }}
                                 name = "repeatpassword"
                                 value =  { registerObject?.repeatpassword }
