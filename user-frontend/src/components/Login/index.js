@@ -18,8 +18,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 const Login = props => {
-    console.warn('Login()', props);
-
+    console.info('Login()', props);
 
     let index = props.index;
     let assetObject = props.assetObject;
@@ -155,7 +154,7 @@ const Login = props => {
                 className = 'primary'
                 style = {{ marginBottom: 10 }}
                 //onClick = { handleLogin }
-                onClick = { (event) => props.handleLogin2(event) }
+                onClick = { (event) => props.handleLogin(event) }
                 >
                 Log In
             </button>
@@ -163,13 +162,6 @@ const Login = props => {
         </div>
 
         <div style = {{ paddingTop: '18px' }}>
-
-            <span
-                style = {{
-                      fontSize: '1.25em'
-                    , padding: '0px 7px'
-                }}
-                >|</span>
 
             <Link
                 to = '/register'

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 //const Register = () => {
 const Register = props => {
-    console.warn('screens/Register(props)', props);
+    console.info('screens/Register(props)', props);
 
     const navigate = useNavigate()
 

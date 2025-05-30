@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 
 const {
       isAuthorized
+    , userAuthSignature 
     , checkProfileData
     , checkQuery
     , checkSubscriber
@@ -13,6 +14,11 @@ const {
 
 const {
       generateReferralLink
+    , registerUser
+    , logOutUser
+    , getProfile
+    , verifyEmail
+    , authSignature
 } = require('../controllers/user');
 
 const {
@@ -20,13 +26,15 @@ const {
     , fetchAllRewards
 } = require('../modules/referee/controllers');
 
-// User Routes
 
-router.get('/user/referralLink', isAuthorized, generateReferralLink);
+// Routes
 
-// Affiliates Routes
-router.get('/user/affiliates', isAuthorized, fetchAllAffiliates);
-router.get('/user/rewards/history', isAuthorized, fetchAllRewards);
+router.post('/user/register-user', registerUser);
+router.get('/user/verify-email', verifyEmail);
+router.post('/user/authenticate', [userAuthSignature], authSignature);
+router.get('/user/referralLink/:email', generateReferralLink);
+router.get('/user/affiliates', fetchAllAffiliates);
+router.get('/user/rewards/history', fetchAllRewards);
 
 // Ping the application connection
 router.get('/ping', (req, res) => {

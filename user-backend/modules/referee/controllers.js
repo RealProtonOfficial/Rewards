@@ -17,7 +17,14 @@ exports.fetchAllAffiliates = async (req, res) => {
 
     try {
 
-        const user = req.user;
+        //const user = req.user;
+        //console.log('    user = ', user);
+        //let userId = user.id;
+
+        let email = req.query.email;
+        let userId = req.query.userId;
+        console.log('    userId = ', userId);
+        console.log('    email = ', email);
         const page = (req.query.page && req.query.page > 0) ? parseInt(req.query.page) : 1;
         const limit = (req.query.limit && req.query.limit > 0) ? parseInt(req.query.limit) : 10;
         const offset = page === 1 ? 0 : limit * (page - 1);
@@ -26,20 +33,18 @@ exports.fetchAllAffiliates = async (req, res) => {
         const where = {};
         let attributes = [];
 
-        console.log('    user', user);
-
         if (search) {}
         if (!level) {
             where[Op.or] =
                 [
                     {
-                        rLevel1: user.id,
+                        rLevel1: userId,
                     },
                     {
-                        rLevel2: user.id,
+                        rLevel2: userId,
                     },
                     {
-                        rLevel3: user.id,
+                        rLevel3: userId,
                     }
                 ];
                 attributes = ['id', 'userId', 'rLevel1', 'rLevel2', 'rLevel3', 'createdAt'];
@@ -47,17 +52,17 @@ exports.fetchAllAffiliates = async (req, res) => {
 
         // For Level 1 Where & Attributes
         if (level === 1) {
-            where.rLevel1 = user.id;
+            where.rLevel1 = userId;
             attributes = ['id', 'userId', 'rLevel1', 'createdAt'];
         };
         // For Level 2 Where & Attributes
         if (level === 2) {
-            where.rLevel2 = user.id;
+            where.rLevel2 = userId;
             attributes = ['id', 'userId', 'rLevel2', 'createdAt'];
         };
         // For Level 3 Where & Attributes
         if (level === 3) {
-            where.rLevel3 = user.id;
+            where.rLevel3 = userId;
             attributes = ['id', 'userId', 'rLevel3', 'createdAt'];
         };
         console.log('    where', where);
@@ -70,36 +75,51 @@ exports.fetchAllAffiliates = async (req, res) => {
             include: [{
                 model: User,
                 as: 'user',
-                attributes: ['id', 'userName', 'email', 'profilePicUrl', 'walletId', 'createdAt']
+                attributes: [
+                    'id'
+                    , 'userName'
+                    , 'email'
+                    //, 'profilePicUrl'
+                    , 'createdAt'
+                ]
 
             }],
             order: [['createdAt', 'DESC']],
             attributes: { exclude: ['createdAt', 'updatedAt'] }
         });
-        if (fetchAll.count === 0) return HttpResponse.notFoundResponse(res, "Affiliates details not found");
+
+        if (fetchAll.count === 0) return HttpResponse.notFoundResponse(res, "No referred affiliates found.");
         let totalPages = Math.ceil(fetchAll.count / limit);
         totalPages = {
             ...fetchAll,
             totalPages
         };
         return HttpResponse.successResponse(res, 'Affiliates Fetched Successfully', totalPages);
-} catch (error) {
-    return HttpResponse.serverErrorResponse(res, 'Something Went Wrong at Controller', error);
-  }
+    } catch (error) {
+        console.error(error);
+        return HttpResponse.serverErrorResponse(res, 'Something Went Wrong at Controller', error);
+    }
 };
 
 exports.fetchAllRewards = async (req, res) => {
     console.log('modules/referee/controllers.fetchAllRewards(req, res)');
 
     try {
-        const user = req.user;
+
+        //const user = req.user;
+        //console.log('user.id = ', user.id);
+        //let userId = user.id;
+
+        let email = req.query.email;
+        let userId = req.query.userId;
+        console.log('    userId = ', userId);
+        console.log('    email = ', email);
         const page = (req.query.page && req.query.page > 0) ? parseInt(req.query.page) : 1;
         const limit = (req.query.limit && req.query.limit > 0) ? parseInt(req.query.limit) : 10;
         const offset = page === 1 ? 0 : limit * (page - 1);
         const level = Number(req.query.level);
-        const findQuery = { referralId: user.id };
+        const findQuery = { referralId: userId };
 
-        console.log('user.id = ', user.id);
         console.log('page = ', page);
         console.log('limit = ', limit);
         console.log('offset = ', offset);
@@ -121,7 +141,11 @@ exports.fetchAllRewards = async (req, res) => {
             include: {
                 model: User,
                 as: 'user',
-                attributes: ['id', 'userName', 'profilePicUrl']
+                attributes: [
+                    'id'
+                    , 'userName'
+                    //, 'profilePicUrl'
+                ]
             },
             limit: limit,
             offset: offset,
@@ -129,16 +153,12 @@ exports.fetchAllRewards = async (req, res) => {
             attributes: { exclude: ['updatedAt'] }
         });
         console.log('fetchAll = ', fetchAll);
-        if (fetchAll.count === 0) return HttpResponse.notFoundResponse(res, "No rewards found.");
-
-        const walletDetails = await Wallet.findOne({ where: { userId: user.id }, attributes: { exclude: ['createdAt', 'updatedAt'] } });
-        console.log('walletDetails = ', walletDetails);
+        if (fetchAll.count === 0) return HttpResponse.notFoundResponse(res, "No reward history found.");
 
         let totalPages = Math.ceil(fetchAll.count / limit);
         console.log('totalPages = ', totalPages);
         totalPages = {
               ...fetchAll
-            , walletDetails
             , totalPages
         };
         return HttpResponse.successResponse(res, "Reward history of user fetched", totalPages);

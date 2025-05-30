@@ -2,7 +2,7 @@ import LoginComponent from "../../components/Login";
 import { useNavigate } from "react-router-dom";
 
 const Login = props => {
-    console.warn('screens/Login(props)', props);
+    console.info('screens/Login(props)', props);
 
     const navigate = useNavigate()
 

@@ -30,6 +30,7 @@ const Page = (props) => {
 
             <Header
                 className = "light"
+                loginRegisterFunctions = { props.loginRegisterFunctions }
                 />
 
             { props.children }

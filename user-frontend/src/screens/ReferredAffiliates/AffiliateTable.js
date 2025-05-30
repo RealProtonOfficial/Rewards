@@ -11,6 +11,7 @@ import ReactPaginate from "react-paginate";
 import moment from "moment";
 import { CircularProgress } from '@mui/material';
 import { NAMES_CONSTANTS } from '../../constants';
+import { PopUpAlert } from "../../controller/utils";
 
 const AffiliateTable = (props) => {
 //const AffiliateTable = () => {
@@ -23,13 +24,10 @@ const AffiliateTable = (props) => {
     const [affiliates, setAffiliates] = useState([]);
     const [params, setParams] = useState({ limit: rowsPerPage, page: 1, type: "active" });
     const [count, setCount] = useState(0);
-    const [loaderShow, setLoaderShow]=useState(false)
     const [activeIndex, setActiveIndex] = useState(0);
 
     const getAllAssets = async (index) => {
         console.log('getAllAssets(index)', index);
-
-        setLoaderShow(true);
 
         let parameters = params;
         let config = {
@@ -56,11 +54,17 @@ const AffiliateTable = (props) => {
                     break;
             }
         }
+
+        parameters.userId = props.userDetails?.userId;
+        parameters.email = props.userDetails?.email;
+        console.log('parameters = ', parameters);
+
         config.params = parameters;
-        console.log('config', config);
+        console.log('config = ', config);
         
         try {
             let userData = await axiosInstance.get("/user/affiliates", config);
+            //let userData = await axiosInstance.get(`/user/affiliates/${props.userDetails.email}`, config);
             console.log('userData', userData);
             console.log('userData?.data', userData?.data);
             console.log('userData?.data?.result', userData?.data?.result);
@@ -68,15 +72,24 @@ const AffiliateTable = (props) => {
             console.log('userData?.data?.result?.totalPages', userData?.data?.result?.totalPages);
             setAffiliates(userData?.data?.result?.rows);
             setCount(userData?.data?.result?.totalPages);
-            setLoaderShow(false)
         } catch (err) {
+
+            console.log(err);
+
             setAffiliates([]);
-            setLoaderShow(false)
+
+            if (err.response.data) {
+                PopUpAlert(
+                      err.response.data.message
+                    , err.response.data.error
+                    , 'error'
+                );
+            }
         }
     };
     
-    useEffect(()=>{
-        console.log("AffiliateTable: useEffect()")
+    useEffect(() => {
+        console.info("AffiliateTable: useEffect()")
         let doc =document.getElementById("tableContainer")
         if (doc) doc.scrollLeft = 0
     //},[index]);
@@ -93,9 +106,12 @@ const AffiliateTable = (props) => {
     //const routeTo = (x) => { alert("routeTo("+x+")"); };
 
     useEffect(() => {
+        console.info("AffiliateTable: useEffect(() => {")
+
         //getAllAssets(index);
         getAllAssets(activeIndex);
     //}, [props, params]);
+
     }, [activeIndex, params]);
 
     let affiliateLevels = [
@@ -123,10 +139,6 @@ const AffiliateTable = (props) => {
             style = {{ flexGrow: 1 }}
             >
         */}
-
-            {/*
-                loaderShow && <div className={styles.loaderContent}><CircularProgress /></div>
-            */}
 
             <div style = {{ display: 'inline-block' }}>
                 <div

@@ -34,7 +34,7 @@ const {
 } = require('../controllers/user');
 */
 
-const sendgrid = require("../utilities/sendgrid");
+//const sendgrid = require("../utilities/sendgrid"); // Email sending removed to expedite delivery
 //const { Op } = require("sequelize");
 const { Op, Sequelize } = require('sequelize');
 const { URLS } = require("../config");
@@ -87,152 +87,15 @@ exports.forgotPassword = (req, res, next) => {
         });
 };
 
-//exports.requestUserPasswordReset = email => {
-const requestUserPasswordReset = email => {
-    console.log('controllers/user: requestUserPasswordReset(email)', email);
-
-    return new Promise((resolve, reject) => {
-        User.findOne({ where: { email: email.toLowerCase() } })
-            .then(async user => {
-                //console.log('AdminUser.findOne({ where: { email: '+email.toLowerCase()+' }}).then(): user = ', user);
-                console.log('Users.findOne({ where: { email: '+email.toLowerCase()+' }}).then(async user => {');
-                console.log('user.id = ', user.id);
-                console.log('user.email = ', user.email);
-                if (!user) {
-                    reject(new Error(`User not found!`));
-                } else {
-
-                    const token = await generateToken();
-                    console.log('token = ', token);
-                    user.resetPasswordToken = token;
-                    user.save().then(() => resolve({ token }));
-
-                    //let resetLink = `${process.env.FRONT_BASE_URL}user/forgot-password/${token}`;
-                    let resetLink = `${process.env.FRONT_BASE_URL}forgot-password-dialog/${token}`;
-                    console.log('resetLink = ', resetLink);
-
-                    const inviteObject = {
-                        name: 'Test' 
-                        , email: email
-                        , token: token
-                        //, link: `${process.env.ADMIN_FRONT_URL}/forgot-password/${token}`
-                        , link: resetLink
-                        , userName: 'Test'
-                        //, sUser: `${firstName} ${lastName}`
-                        , sUser: 'firstName lastName'
-                        , sLink: resetLink
-                        , sUrl: `${process.env.FRONT_BASE_URL}`
-                        , frontURL: `${process.env.FRONT_BASE_URL}`
-                        , tcURL: `${process.env.FRONT_BASE_URL}TermsAndConditions`
-                    };
-                    console.log('inviteObject = ', inviteObject);
-
-                    try {
-                        resetPasswordEvent(inviteObject);
-                    } catch (error) {
-                        console.log(error);
-                    }
-                }
-            })
-            .catch(error => {
-                console.log(error);
-                console.error(error);
-                //reject(new Error('Failed to update'));
-                reject(new Error(`User not found!`));
-            });
-    });
-};
-
-const resetPasswordEvent = (inviteObject) => {
-    console.log('controllers/user: resetPasswordEvent(inviteObject)', inviteObject);
-
-    sendgrid.send(
-          sendgrid.resetPassword
-        , inviteObject
-        , (err, data) => {
-            console.log('err = ', err);
-            console.log('data = ', data);
-            if (err) {
-                console.log(err);
-                //return HttpResponse.serverErrorResponse(data, "Something went wrong at Send-email", err);
-                throw err;
-            }
-        }
-    );
-};
-
-exports.resetPassword = (req, res, next) => {
-    console.log('controllers/user: resetPassword(req, res, next)');
-
-    const password = req.body.password;
-    const token = req.body.token;
-
-    console.log('password = ', password);
-    console.log('token = ', token);
-
-    resetUserPassword(token, password)
-        .then(response => res.json(response))
-        //.catch((error) => next(error));
-        .catch((error) => {
-            console.log(error);
-            console.log('error?.message = ', error?.message);
-            //return HttpResponse.serverErrorResponse(res, 'Error in routes/adminAuth: resetPassword(req, res, next)', error);
-            //return HttpResponse.serverErrorResponse(res, error?.message, error?.message);
-            return HttpResponse.badRequestErrorResponse(res, error?.message, [ error?.message ]);
-        });
-};
-
-/**
- * Recover a user password by their reset token and password
- *
- * @param token
- * @param password
- */
-//exports.resetUserPassword = (token, password) => {
-const resetUserPassword = (token, password) => {
-    console.log('controllers/user: resetUserPassword("'+token+'", "'+password+'")');
-
-    return new Promise(async (resolve, reject) => {
-        User.findOne({ where: { resetPasswordToken: token } })
-            .then(async user => {
-                console.log('user = ', user);
-                if (!user) {
-                    //reject(new Error('Failed to update'));
-                    //reject(new Error('The password reset token has been used already. Try resetting your password again.'));
-                    reject(new Error('This password reset request has been used already. Try resetting your password again.'));
-                } else {
-                    const hash = await bcrypt.hash(password, 10);
-                    console.log('password hash', hash);
-                    user.password = hash;
-                    user.resetPasswordToken = null;
-
-                    user.save().then(newUser => {
-                        console.log('newUser = ', newUser);
-                        if (!newUser) {
-                            reject(new Error('Failed to update the user\'s password in the database. '+ user.email));
-                        } else {
-                            resolve(newUser);
-                        }
-                    });
-                }
-            })
-            //.catch(error => reject(new Error('Failed to creation.', error)));
-            .catch((error) => {
-                console.log(error);
-                console.log('error?.message = ', error?.message);
-                //return HttpResponse.serverErrorResponse(res, 'Error in routes/adminAuth: resetPassword(req, res, next)', error);
-                //return HttpResponse.serverErrorResponse(res, error?.message, error?.message);
-                //return HttpResponse.badRequestErrorResponse(res, error?.message, [ error?.message ]);
-                reject(new Error('Failed to creation.', error));
-        });
-    });
-};
-
 exports.authSignature = async (req, res) => {
     try {
         const user = req.user;
         loginSession(
-            { id: user.id, publicAddress: user.publicAddress, email: user.email }
+            {
+                id: user.id
+                //, publicAddress: user.publicAddress
+                , email: user.email
+            }
             , (secureToken) => {
                 if (!secureToken) {
                     return HttpResponse.accessErrorResponse(res, "Access token not created");
@@ -427,6 +290,7 @@ exports.registerUser = async (req, res) => {
                 const verifyLink = `${ URLS.BACKEND }user/verify-email?token=${ secureTokenObject?.accessToken }`;
                 console.log("verifyLink = ", verifyLink);
 
+                /* Removed Sendgrid sending to expedite delivery. The verifiation link can get read from the console log.
                 let emailSendingConfig = {
                       email: user.email
                     , userName: 'User'
@@ -442,6 +306,7 @@ exports.registerUser = async (req, res) => {
                       sendgrid.verification
                     , emailSendingConfig
                 );
+                */
 
                 //userObject.id = user.id; // Set the user ID in the 
                 let levelPayload;
@@ -484,9 +349,6 @@ exports.registerUser = async (req, res) => {
                         console.log("New Referee: ", user.id);
                     }
 
-                /*
-                    Dermot: We shouldn't need to create a Referrer entry if there is no referrer.
-                */
                 } else {
 
                     levelPayload = {
@@ -496,7 +358,6 @@ exports.registerUser = async (req, res) => {
                     // Create referrer entry for new user
                     await Referee.create(levelPayload);
                     console.log("New Referee: ", user.id);
-                    // create user in and that store in referrerDetails
                 }
 
                 /*
@@ -574,115 +435,6 @@ exports.registerUser = async (req, res) => {
             , "Something went wrong in user.registerUser()"
             , error
         );
-    }
-};
-
-exports.updateProfile = async (req, res) => {
-    console.log("updateProfile(req, res)");
-
-    try {
-
-        let user = req.user;
-        console.log("user = ", user);
-        
-        const {
-            firstName
-            , lastName
-            , email
-            , userName
-        } = req.body;
-
-        console.log(
-            firstName
-            , lastName
-            , email
-            , userName
-        );
-
-        const findQuery = { id: user.id };
-        var messageEmail = `User's Profile Updated`;
-        let whereCondition = "";
-
-        if (userName) {
-            whereCondition = {
-                id: { [Op.ne]: user.id },
-                [Op.or]: [{ email }, { userName }],
-            };
-        } else {
-            whereCondition = {
-                id: { [Op.ne]: user.id },
-                [Op.or]: [{ email }],
-            };
-        }
-
-        const uniqueUser = await User.findOne({ where: whereCondition });
-        console.log("uniqueUser = ", uniqueUser);
-
-        if (uniqueUser) return HttpResponse.errorInResponse(res, "Username/Email already taken by existing user");
-
-        if (email.trim() === "") return HttpResponse.validationErrorResponse(res, "Email can not be empty string");
-
-        const updateQuery = {
-              //firstName: slugify(firstName.trim())
-              firstName: firstName.trim()
-            //, lastName: slugify(lastName.trim())
-            , lastName: lastName.trim()
-            , email: email.trim()
-            , userName: slugify(userName.trim())
-        };
-        console.log("updateQuery = ", updateQuery);
-
-        if (email && user.email !== email) {
-
-            const userExists = await User.findOne({ where: { email } });
-            console.log("userExists = ", userExists);
-            if (userExists) return HttpResponse.serverErrorResponse(res, "email already exist");
-
-            updateQuery.status = "unverified";
-
-            const secureTokenObject = await generateAccessToken(null, {
-                  id: user.id
-                , email: email
-            });
-            console.log("secureTokenObject = ", secureTokenObject);
-
-            if (!secureTokenObject) return HttpResponse.accessErrorResponse(res,"Verification token not created");
-
-            const sLink = `${URLS.BACKEND}user/verify-email?token=${ secureTokenObject.accessToken }`;
-            console.log("sLink = ", sLink);
-
-            sendgrid.send(
-                sendgrid.verification
-                , {
-                      email: email
-                    , userName: userName
-                    , sUser: `${firstName} ${lastName}`
-                    , sLink: sLink
-                    , sUrl: `${process.env.FRONT_BASE_URL}`
-                    , frontURL: `${process.env.FRONT_BASE_URL}`
-                    , tcURL: `${process.env.FRONT_BASE_URL}TermsAndConditions`
-                }
-                , (err, data) => {
-                    if (err) {
-                        console.log(err);
-                        return HttpResponse.serverErrorResponse(data, "Something went wrong at Send-email", err);
-                    }
-                }
-            );
-
-            messageEmail = `${messageEmail} And Verification email sent to this ${email}`;
-            console.log("messageEmail", messageEmail);
-
-        }
-
-        await User.update(updateQuery, { where: findQuery });
-        user = await User.findOne({ where: findQuery, raw: true });
-        console.log("user = ", user);
-
-
-        return HttpResponse.successResponse(res, messageEmail, user);
-    } catch (error) {
-        return HttpResponse.serverErrorResponse(res, "An error arose in controller/user.js", error);
     }
 };
 
@@ -774,6 +526,7 @@ const sendVerificationMail = async (user) => {
         };
         console.log("emailSendingConfig = ", emailSendingConfig);
 
+        /* Email delivery removed to expedite delivery
         await sendgrid.send(
             sendgrid.verification
             , emailSendingConfig
@@ -782,6 +535,7 @@ const sendVerificationMail = async (user) => {
                 if (result) return HttpResponse.successResponse("success", "Verification email has been sent.");
             }
         );
+        */
 
     } catch (error) {
         return HttpResponse.serverErrorResponse(res, "Something Went Wrong at Controller", error);
@@ -812,11 +566,17 @@ exports.generateReferralLink = async (req, res, next) => {
 
     try {
 
-        const user = req.user;
-        console.log('user.email = ' + user.email);
+        //console.log('req.email = ' + req.email);
+        console.log('req.params.email = ' + req.params.email);
+
+        //const user = req.user;
+        //console.log('user.email = ' + user.email);
+
+        let email = req.params.email;
 
         const fetchUser = await User.findOne({
-              where: { id: user.id }
+              //where: { id: user.id }
+              where: { email: email }
             , attributes: ["id", "referralCode", "email"]
             , raw: true
         });

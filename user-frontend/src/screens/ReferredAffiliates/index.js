@@ -13,7 +13,7 @@ const ReferredAffiliates = (props) => {
     let userId;
     if (props.userDetails) {
         //userId = userDetail.userId;
-        userId = props.userDetails?.id;
+        userId = props.userDetails?.userId;
         console.log('       userId = ', userId);
     }
     const loginStatus = true;
@@ -86,6 +86,7 @@ const ReferredAffiliates = (props) => {
                                 //index = { activeIndex }
                                 //setActiveIndex = { setActiveIndex }
                                 userId = { userId }
+                                userDetails = { props.userDetails }
                                 />
 
                         </div>

@@ -11,9 +11,8 @@ import {
     //, GoogleShareButton
     , LinkedinShareButton
     , TwitterShareButton } from 'react-share';
-import { NAMES_CONSTANTS } from '../../constants';
 
-const ReferralLink = () => {
+const ReferralLink = (props) => {
     console.log('ReferralLink()');
 
     const [referralLink, setReferralLink] = useState('');
@@ -25,12 +24,16 @@ const ReferralLink = () => {
 
     const generateReferralLink = async() => {
         console.log('ReferralLink: generateReferralLink()');
+
         let config = {
             headers: {
-                Authorization: "Bearer " + localStorage.getItem(NAMES_CONSTANTS.USER_ACCESS_TOKEN)
+                Authorization: "Bearer " + localStorage.getItem('USER_ACCESS_TOKEN')
             }
         };
-        await axiosInstance.get('/user/referralLink', config).then((res) => {
+
+        //await axiosInstance.get('/user/referralLink', config).then((res) => {
+        //await axiosInstance.get(`/user/referralLink?email=${props.userDetails.email}`, config).then((res) => {
+        await axiosInstance.get(`/user/referralLink/${props.userDetails.email}`, config).then((res) => {
             const referralLink = res?.data?.result;
             setReferralLink(referralLink)
             console.log('referralLink', referralLink);
@@ -167,11 +170,12 @@ const ReferralLink = () => {
                                             name = 'copy'
                                             value = { referralLink }
                                             disabled
-                                            //style = {{
+                                            style = {{
+                                                fieldSizing: 'content'
                                             //    minWidth: '300px'
                                             //      border: "2px solid #E6E8EC"
                                             //    , borderRadius: "12px"
-                                            //}}
+                                            }}
                                             />
                                     </div>
                                     <div>

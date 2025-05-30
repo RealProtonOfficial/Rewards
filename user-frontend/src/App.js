@@ -24,7 +24,8 @@ import ReferredAffiliates               from "./screens/ReferredAffiliates";
 import RewardHistory                    from "./screens/RewardHistory";
 import Register                         from "./screens/Register";
 import Login                            from "./screens/Login";
-import Home                            from "./screens/Home";
+import Home                             from "./screens/Home";
+import UserHome                         from "./screens/UserHome";
 
 import {
     CircularProgress
@@ -50,6 +51,7 @@ function App() {
 
     const [referralCode, setReferralCode] = useState(null);
     const [userDetails, setUserDetails] = useState({});
+    const [userAccessToken, setUserAccessToken] = useState(null);
     const registerFormRef = useRef(null);
     const [loginError, setLoginError] = useState({})
     const [registerError, setRegisterError] = useState({})
@@ -84,7 +86,7 @@ function App() {
     };
 
     const keyDownPassword = (e) => {
-        console.warn('keyDownPassword(e)');
+        console.info('keyDownPassword(e)');
 
         if (e.key === 'Enter') {
             console.log('e.key = ', e.key);
@@ -109,44 +111,44 @@ function App() {
     };
 
     const registerUser = async (event) => {
-        console.warn('registerUser()', event);
+        console.info('registerUser()', event);
 
         if (event) {
             event.stopPropagation();
             event.preventDefault();
         }
 
-        console.warn('registerFormRef.current = ', registerFormRef.current);
-        console.warn('event.target = ', event.target);
-        console.warn('event.target.form = ', event.target?.form);
+        console.info('registerFormRef.current = ', registerFormRef.current);
+        console.info('event.target = ', event.target);
+        console.info('event.target.form = ', event.target?.form);
 
         // Get the form element        
         //let form = registerFormRef.current;
         //const clickedButton = event.target;
         //const formElement = clickedButton.form;
         let form = event.target?.form;
-        console.warn('form = ', form);
+        console.info('form = ', form);
 
         let firstNameField = form['firstName'];
         let firstName = firstNameField.value;
-        //console.warn('firstNameField = ', firstNameField);
-        console.warn('firstName = ', firstName);
+        //console.info('firstNameField = ', firstNameField);
+        console.info('firstName = ', firstName);
 
         let lastNameField = form['lastName'];
         let lastName = lastNameField.value;
-        console.warn('lastName = ', lastName);
+        console.info('lastName = ', lastName);
 
         let fieldName = 'username';
         let username = form[fieldName].value;
-        console.warn('username = ', username);
+        console.info('username = ', username);
 
         fieldName = 'password';
         let password = form[fieldName].value;
-        console.warn('password = ', password);
+        console.info('password = ', password);
 
         fieldName = 'repeatpassword';
         let repeatPassword = form[fieldName].value;
-        console.warn('repeatPassword = ', repeatPassword);
+        console.info('repeatPassword = ', repeatPassword);
 
         if (!firstName) {
             let registerError = {};
@@ -185,7 +187,7 @@ function App() {
         fieldName = 'password';
         if (!password) {
             setRegisterError({ ...registerError, [fieldName]: message });
-            console.warn('registerError = ', registerError);
+            console.info('registerError = ', registerError);
             return;
         } else {
             registerError[fieldName] = '';
@@ -197,7 +199,7 @@ function App() {
         fieldName = 'repeatpassword';
         if (!repeatPassword) {
             setRegisterError({ ...registerError, [fieldName]: message });
-            console.warn('registerError = ', registerError);
+            console.info('registerError = ', registerError);
             return;
         } else {
             registerError[fieldName] = '';
@@ -212,9 +214,9 @@ function App() {
                 , 'error'
             ).then((result) => {
                 // { isConfirmed: true, isDenied: false, isDismissed: false, value: true }
-                console.warn(result);
-                console.warn("result.isConfirmed = ", result.isConfirmed);
-                console.warn("result.value = ", result.value);
+                console.info(result);
+                console.info("result.isConfirmed = ", result.isConfirmed);
+                console.info("result.value = ", result.value);
             });
             return;
         }
@@ -226,13 +228,13 @@ function App() {
             , lastName: lastName
         };
         if (referralCode) payload.referralCode = referralCode
-        console.warn('payload = ', payload);
+        console.info('payload = ', payload);
 
         fetchRegister(payload);
     };
 
     let fetchRegister = async (bodyObject) => {
-        console.warn('App: fetchRegister(bodyObject)', bodyObject);
+        console.info('App: fetchRegister(bodyObject)', bodyObject);
 
         try {
 
@@ -244,23 +246,23 @@ function App() {
                 }
                 , body: JSON.stringify(bodyObject)
             };
-            console.warn('fetchConfig = ', fetchConfig);
+            console.info('fetchConfig = ', fetchConfig);
 
             let fetchPath = `${ base_url }user/register-user`;
-            console.warn('fetchPath = ', fetchPath);
+            console.info('fetchPath = ', fetchPath);
 
             let fetchPromise = fetch(fetchPath, fetchConfig);
             fetchPromise
                 .then(function(response) {
-                    console.warn('response = ', response);
-                    console.warn('response.ok = ', response.ok);
+                    console.info('response = ', response);
+                    console.info('response.ok = ', response.ok);
                     
                     if (response.ok) { // status of 200 signifies sucessful HTTP call, shorthand for checking that status is in the range 200-299 inclusive. Returns a boolean value.
                         //Swal.close();
                         handleCloseRegisterDialog();
                         return response.json();
                     } else {
-                        //console.warn('response.text() = ', response.text());
+                        //console.info('response.text() = ', response.text());
                         return response.text().then(text => { throw new Error(text) })
                     }
                 })
@@ -268,21 +270,21 @@ function App() {
                 // { success: true, message: "User Already Exists", result: {…} }
                 // { success: false, message: "User Already Exists" }
                 .then(function(responseJson) {
-                    console.warn('responseJson = ', responseJson);
+                    console.info('responseJson = ', responseJson);
 
                     if (responseJson) {
 
-                        console.warn('responseJson.success = ', responseJson.success);
+                        console.info('responseJson.success = ', responseJson.success);
                         if (responseJson.success) {
 
                             setIsRegisteredUser(true);
-                            console.warn('isRegisteredUser = ', isRegisteredUser);
+                            console.info('isRegisteredUser = ', isRegisteredUser);
 
-                            console.warn('responseJson.result = ', responseJson.result);
-                            console.warn('typeof responseJson.result = ', typeof responseJson.result);
+                            console.info('responseJson.result = ', responseJson.result);
+                            console.info('typeof responseJson.result = ', typeof responseJson.result);
 
                             setUserDetails(responseJson.result);
-                            console.warn('userDetails = ', userDetails);
+                            console.info('userDetails = ', userDetails);
 
                                 if (responseJson.message) {
 
@@ -307,9 +309,9 @@ function App() {
                                         , iconColor: 'var(--color-theme-success)'
                                     }).then((result) => {
                                         // { isConfirmed: true, isDenied: false, isDismissed: false, value: true }
-                                        console.warn(result);
-                                        console.warn("result.isConfirmed = ", result.isConfirmed);
-                                        console.warn("result.value = ", result.value);
+                                        console.info(result);
+                                        console.info("result.isConfirmed = ", result.isConfirmed);
+                                        console.info("result.value = ", result.value);
                                     });
                                 }
                             //}
@@ -327,9 +329,9 @@ function App() {
                                 , iconColor: 'var(--color-theme-alert)'
                             }).then((result) => {
                                 // { isConfirmed: true, isDenied: false, isDismissed: false, value: true }
-                                console.warn(result);
-                                console.warn("result.isConfirmed = ", result.isConfirmed);
-                                console.warn("result.value = ", result.value);
+                                console.info(result);
+                                console.info("result.isConfirmed = ", result.isConfirmed);
+                                console.info("result.value = ", result.value);
 
                                 /*
                                 if (result.value) {
@@ -337,11 +339,11 @@ function App() {
                                     //setIsVisibleRegisterDialog(false);
                                     //showLoginDialog();
 
-                                    console.warn("usernameValue = ", usernameValue);
-                                    console.warn("usernameRef = ", usernameRef);
-                                    console.warn("usernameRef.current = ", usernameRef.current);
+                                    console.info("usernameValue = ", usernameValue);
+                                    console.info("usernameRef = ", usernameRef);
+                                    console.info("usernameRef.current = ", usernameRef.current);
                                     usernameRef.current.value = usernameValue;
-                                    console.warn("usernameRef.current.value = ", usernameRef.current.value);
+                                    console.info("usernameRef.current.value = ", usernameRef.current.value);
                                 }
                                 //*/
 
@@ -351,13 +353,13 @@ function App() {
 
                 }).catch(err => {
 
-                    console.warn(err);
-                    console.warn('err = ', err);
-                    console.warn('err.message = ', err.message);
-                    console.warn('typeof err.message = ', typeof err.message);
+                    console.info(err);
+                    console.info('err = ', err);
+                    console.info('err.message = ', err.message);
+                    console.info('typeof err.message = ', typeof err.message);
 
                     let errorObject = JSON.parse(err.message);
-                    console.warn('errorObject = ', errorObject);
+                    console.info('errorObject = ', errorObject);
 
                     let sweetAlertConfig = {
                         icon: 'error'
@@ -386,9 +388,9 @@ function App() {
                     Swal.fire(sweetAlertConfig).then((result) => {
                         // E.g. { isConfirmed: true, isDenied: false, isDismissed: false, value: true }
                         
-                        console.warn(result);
-                        console.warn("App: fetchRegister(): Swal.fire({}): result.isConfirmed = ", result.isConfirmed);
-                        console.warn("App: fetchRegister(): Swal.fire({}): result.value = ", result.value);
+                        console.info(result);
+                        console.info("App: fetchRegister(): Swal.fire({}): result.isConfirmed = ", result.isConfirmed);
+                        console.info("App: fetchRegister(): Swal.fire({}): result.value = ", result.value);
 
                     });
 
@@ -402,30 +404,30 @@ function App() {
     }; // fetchRegister()
 
     const handleLogin = async (event) => {
-        console.warn('handleLogin()', event);
+        console.info('handleLogin()', event);
 
         if (event) {
             event.stopPropagation();
             event.preventDefault();
         }
 
-        //console.warn('registerFormRef.current = ', registerFormRef.current);
-        console.warn('event.target = ', event.target);
-        console.warn('event.target.form = ', event.target?.form);
+        //console.info('registerFormRef.current = ', registerFormRef.current);
+        console.info('event.target = ', event.target);
+        console.info('event.target.form = ', event.target?.form);
 
         //const clickedButton = event.target;
         //const formElement = clickedButton.form;
         //let form = registerFormRef.current;
         let form = event.target?.form;
-        console.warn('form = ', form);
+        console.info('form = ', form);
 
         let fieldName = 'username';
         let username = form[fieldName].value;
-        console.warn('username = ', username);
+        console.info('username = ', username);
 
         fieldName = 'password';
         let password = form[fieldName].value;
-        console.warn('password = ', password);
+        console.info('password = ', password);
 
         if (!username) {
             let registerError = {};
@@ -442,7 +444,7 @@ function App() {
         fieldName = 'password';
         if (!password) {
             setRegisterError({ ...registerError, [fieldName]: message });
-            console.warn('registerError = ', registerError);
+            console.info('registerError = ', registerError);
             return;
         } else {
             registerError[fieldName] = '';
@@ -457,19 +459,13 @@ function App() {
     };
 
     let fetchLogin = async (bodyObject) => {
-        console.warn('App: fetchLogin(bodyObject)', bodyObject);
+        console.info('App: fetchLogin(bodyObject)', bodyObject);
 
         try {
 
-            let localStorageKeyName = NAMES_CONSTANTS.USER_WALLET_DETAILS;
-            console.log('App: fetchLogin(): localStorageKeyName = ', localStorageKeyName);
-
-            let localStorageKeyNameUserAccessToken = NAMES_CONSTANTS.USER_ACCESS_TOKEN;
-            console.log('App: fetchLogin(): localStorageKeyNameUserAccessToken = ', localStorageKeyNameUserAccessToken);
-
-            const localStorageUserDetails = JSON.parse(localStorage.getItem(localStorageKeyName));
+            const localStorageUserDetails = JSON.parse(localStorage.getItem('USER_DETAILS'));
             console.log('App: fetchLogin(): localStorageUserDetails = ', localStorageUserDetails);
-            console.warn('bodyObject = ', bodyObject);
+            console.info('bodyObject = ', bodyObject);
 
             let fetchConfig = {
                 //method: 'PATCH'
@@ -480,29 +476,28 @@ function App() {
                 }
                 , body: JSON.stringify(bodyObject)
             };
-            console.warn('fetchConfig = ', fetchConfig);
+            console.info('fetchConfig = ', fetchConfig);
 
-            let fetchPath = `${ base_url }user/authenticate?type=METAKEEP`;
-            console.warn('fetchPath = ', fetchPath);
+            let fetchPath = `${ base_url }user/authenticate`;
+            console.info('fetchPath = ', fetchPath);
 
             let fetchPromise = fetch(fetchPath, fetchConfig);
             fetchPromise.then(function(response) {
-                console.warn('response = ', response);
+                console.info('response = ', response);
 
-                console.warn('response.ok = ', response.ok);
+                console.info('response.ok = ', response.ok);
                 if (response.ok) { // status of 200 signifies sucessful HTTP call, shorthand for checking that status is in the range 200-299 inclusive. Returns a boolean value.
                     //Swal.close();
-                    handleCloseLoginDialog();
                     return response.json();
                 } else {
-                    //console.warn('response.text() = ', response.text());
+                    //console.info('response.text() = ', response.text());
 
                     return response.text().then(text => { throw new Error(text) })
 
                     /*
                     let err = 'err';
-                    console.warn(err);
-                    console.warn('err = ', err);
+                    console.info(err);
+                    console.info('err = ', err);
                     PopUpAlert('Alert', err.message, 'error');
                     return null;
                     */
@@ -511,14 +506,14 @@ function App() {
 
             // {"success":false,"message":"Your password is incorrect."}
             .then(function(responseJson) {
-                console.warn('responseJson = ', responseJson);
+                console.info('responseJson = ', responseJson);
 
                 if (responseJson) {
 
-                    console.warn('responseJson.result = ', responseJson.result);
-                    console.warn('typeof responseJson.result = ', typeof responseJson.result);
+                    console.info('responseJson.result = ', responseJson.result);
+                    console.info('typeof responseJson.result = ', typeof responseJson.result);
 
-                    console.warn('responseJson.success = ', responseJson.success);
+                    console.info('responseJson.success = ', responseJson.success);
 
                     //*    
                     //let userdata = res.data?.result;
@@ -528,43 +523,46 @@ function App() {
                     let userAccessToken = userdata?.accessToken;
                     console.log('App: fetchLogin(): post(): userAccessToken = ', userAccessToken);
 
-                    localStorage.setItem(localStorageKeyNameUserAccessToken, userAccessToken);
+                    // Set the userAccessToken
+                    setUserAccessToken(userAccessToken);
+                    localStorage.setItem('USER_ACCESS_TOKEN', userAccessToken);
 
                     try {
 
-                        let userWalletObject = { userId: userdata?.userId, email: userdata.email };
-                        console.log('userWalletObject = ', userWalletObject);
+                        let userObject = { userId: userdata?.userId, email: userdata.email };
+                        console.log('userObject = ', userObject);
 
-                        let userWalletString =  JSON.stringify(userWalletObject, (key, value) =>
+                        setUserDetails(userObject);
+                        console.info('userDetails = ', userDetails);
+
+                        let userString =  JSON.stringify(userObject, (key, value) =>
                             typeof value === 'bigint'
                             ? value.toString()
                             : value
                         );
-                        console.log('userWalletString = ', userWalletString);
+                        console.log('userString = ', userString);
 
                         localStorage.setItem(
-                            NAMES_CONSTANTS.USER_WALLET_DETAILS
-                            //, JSON.stringify({ accounts, balance, userId: userdata?.userId, email: userdata.email })
-                            //, JSON.stringify(userWalletObject)
-                            , userWalletString
+                            'USER_DETAILS'
+                            , userString
                         );
-                        console.warn('App: fetchLogin(): post(): localStorage.getItem('+NAMES_CONSTANTS.USER_WALLET_DETAILS+') = ', localStorage.getItem(NAMES_CONSTANTS.USER_WALLET_DETAILS));
+                        console.info('App: fetchLogin(): post(): localStorage.getItem(USER_DETAILS) = ', localStorage.getItem('USER_DETAILS'));
 
                     } catch(err) {
                         console.error(err);
-                        console.warn('err = ', err);
+                        console.info('err = ', err);
                         //alert('err = ' + err);
                         //PopUpAlert('Alert', err.message, 'error')
                         //alert('PopUpAlert(err.error, err.message, \'error\')');
                         PopUpAlert(err.error, err.message, 'error')
                     };
 
-                    userAccessToken = localStorage.getItem(localStorageKeyNameUserAccessToken);
+                    userAccessToken = localStorage.getItem('USER_ACCESS_TOKEN');
                     //console.log('               userAccessToken.current = ', userAccessToken.current);
-                    console.warn('App: fetchLogin(): post(): userAccessToken = ', userAccessToken);
+                    console.info('App: fetchLogin(): post(): userAccessToken = ', userAccessToken);
                     //alert('App: fetchLogin(): post(): userAccessToken = ' + userAccessToken);
 
-                    if (userAccessToken) getProfileDetailsAndRerouteUser();
+                    if (userAccessToken) goToUserHome();
 
                 } else { // if (responseJson) {                        
 
@@ -579,24 +577,22 @@ function App() {
                         , iconColor: 'var(--color-theme-alert)'
                     }).then((result) => {
                         // { isConfirmed: true, isDenied: false, isDismissed: false, value: true }
-                        console.warn(result);
-                        console.warn("result.isConfirmed = ", result.isConfirmed);
-                        console.warn("result.value = ", result.value);
+                        console.info(result);
+                        console.info("result.isConfirmed = ", result.isConfirmed);
+                        console.info("result.value = ", result.value);
                     });
                 }
 
             }).catch(err => {
 
-                console.warn('err.message = ', err.message);
+                console.info('err.message = ', err.message);
 
                 let errorObject = JSON.parse(err.message);
                 if (errorObject) {
-                    console.warn('errorObject = ', errorObject);
-                    console.warn('errorObject.message = ', errorObject?.message);
-                    console.warn('errorObject.error = ', errorObject?.error);
+                    console.info('errorObject = ', errorObject);
+                    console.info('errorObject.message = ', errorObject?.message);
+                    console.info('errorObject.error = ', errorObject?.error);
                 }
-
-                setIsSecondaryModalDialogShowing(true); // This gets set so that the outsideClickHandler in the Login Modal Dialog doesn't close the Login Modal when clicking the OK button on the "Successful Login Modal".
 
                 let sweetAlertConfig = {
                     icon: 'error'
@@ -618,11 +614,9 @@ function App() {
                 Swal.fire(sweetAlertConfig).then((result) => {
                     // E.g. { isConfirmed: true, isDenied: false, isDismissed: false, value: true }
                     
-                    console.warn(result);
-                    console.warn("App: fetchLogin(): Swal.fire({}): result.isConfirmed = ", result.isConfirmed);
-                    console.warn("App: fetchLogin(): Swal.fire({}): result.value = ", result.value);
-
-                    setIsSecondaryModalDialogShowing(false); // This gets unset so that the outsideClickHandler on the Register Modal Dialog can hide the Login Modal.
+                    console.info(result);
+                    console.info("App: fetchLogin(): Swal.fire({}): result.isConfirmed = ", result.isConfirmed);
+                    console.info("App: fetchLogin(): Swal.fire({}): result.value = ", result.value);
 
                     if (result.value) {
 
@@ -639,6 +633,31 @@ function App() {
 
     }; // fetchLogin()
 
+    const logoutUser = async () => {
+        console.debug('logoutUser()');
+
+        setUserAccessToken(null);
+
+        localStorage.removeItem('USER_ACCESS_TOKEN');
+        PopUpConfirmation('Success', 'User Logged Out', 'success').then(function() { window.location.href = '/' });
+
+        setTimeout(() => {
+            window.location.href = '/'
+        }, 2000);
+    };
+
+    const loginRegisterFunctions = {
+        logoutUser: logoutUser
+    };
+
+    const goToHome = () => {
+        navigate('/home'); // Navigate to the /home route
+    };
+
+    const goToUserHome = () => {
+        navigate('/user'); // Navigate to the /home route
+    };
+
     return (
 
         <>
@@ -648,11 +667,29 @@ function App() {
                 <Route
                     exact path = "/"
                     element = {
-                        <Home
+                        userAccessToken == null
+                        ? <Home
                             isHomePage = { true }
                             userDetails = { userDetails }
                             //loginRegisterFunctions = { loginRegisterFunctions }
                             />
+                        : <Page
+                            userDetails = { userDetails }
+                            loginRegisterFunctions = { loginRegisterFunctions }
+                            ><UserHome /></Page>
+                    }
+                />
+
+                <Route
+                    exact path = "/user"
+                    element = {
+                        <Page
+                            userDetails = { userDetails }
+                            loginRegisterFunctions = { loginRegisterFunctions }
+                            ><UserHome
+                                userDetails = { userDetails }
+                                loginRegisterFunctions = { loginRegisterFunctions }
+                                /></Page>
                     }
                 />
 
@@ -661,7 +698,7 @@ function App() {
                     element = {
                         <Page
                             userDetails = { userDetails }
-                            //loginRegisterFunctions = { loginRegisterFunctions }
+                            loginRegisterFunctions = { loginRegisterFunctions }
                             >
                             <Register
                                 showCloseButton = { false }
@@ -680,7 +717,7 @@ function App() {
                     element = {
                         <Page
                             userDetails = { userDetails }
-                            //loginRegisterFunctions = { loginRegisterFunctions }
+                            loginRegisterFunctions = { loginRegisterFunctions }
                             >
                             <Login
                                 showCloseButton = { false }
@@ -701,9 +738,12 @@ function App() {
                     element = {
                         <Page
                             userDetails = { userDetails }
-                            //loginRegisterFunctions = { loginRegisterFunctions }
+                            loginRegisterFunctions = { loginRegisterFunctions }
                             >
-                            <ReferralLink />
+                            <ReferralLink
+                                userDetails = { userDetails }
+                                loginRegisterFunctions = { loginRegisterFunctions }
+                                />
                         </Page>
                     } />
                 
@@ -713,7 +753,7 @@ function App() {
                     element = {
                         <Page
                             userDetails = { userDetails }
-                            //loginRegisterFunctions = { loginRegisterFunctions }
+                            loginRegisterFunctions = { loginRegisterFunctions }
                             >
                             <ReferredAffiliates
                                 userDetails = { userDetails }
@@ -726,9 +766,11 @@ function App() {
                     element = {
                         <Page
                             userDetails = { userDetails }
-                            //loginRegisterFunctions = { loginRegisterFunctions }
+                            loginRegisterFunctions = { loginRegisterFunctions }
                             >
-                            <RewardHistory />
+                            <RewardHistory
+                                userDetails = { userDetails }
+                                />
                         </Page>
                     } />
 

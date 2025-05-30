@@ -25,13 +25,9 @@ module.exports = (sequelize, DataTypes) => {
             , lastName: DataTypes.STRING
             , userName: DataTypes.STRING
             , email: DataTypes.STRING
+            , status: DataTypes.STRING
             , referralCode: DataTypes.STRING
             , password: DataTypes.STRING
-            , resetPasswordToken: DataTypes.STRING
-            , isRegistered: {
-                type: DataTypes.BOOLEAN
-                , defaultValue: false
-            }
             , isBlock: {
                 type: DataTypes.BOOLEAN
                 , defaultValue: false

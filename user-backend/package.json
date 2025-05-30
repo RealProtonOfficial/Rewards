@@ -32,7 +32,6 @@
     "controllers": "controllers/"
   },
   "dependencies": {
-    "@sendgrid/mail": "^7.4.6",
     "app-root-path": "^3.0.0",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.20.2",
@@ -46,7 +45,6 @@
     "express": "^4.17.1",
     "express-validator": "^6.12.2",
     "helmet": "^3.23.3",
-    "ioredis": "^4.28.5",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "pg": "^8.7.1",

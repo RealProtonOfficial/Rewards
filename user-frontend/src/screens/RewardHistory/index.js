@@ -8,14 +8,11 @@ import { useSelector } from 'react-redux';
 import { useHistory, Link } from "react-router-dom";
 import RewardHistoryTable from "./RewardHistoryTable";
 
-const RewardHistory = () => {
-    console.log('RewardHistory()');
+const RewardHistory = (props) => {
+    console.log('RewardHistory()', props);
 
     //const history = useHistory()
     const [activeIndex, setActiveIndex] = useState(null);
-    let loginStatus = useSelector((state) => state.counter.value);
-
-    loginStatus = true;
 
     return (
 
@@ -95,11 +92,10 @@ const RewardHistory = () => {
                         className = "flex-container"
                         style = {{ marginTop: '30px' }}
                         >
-                        {
-                            loginStatus
-                            ? <RewardHistoryTable index = { activeIndex } />
-                            : <div>Login to view Details</div>
-                        }
+                        <RewardHistoryTable
+                            index = { activeIndex }
+                            userDetails = { props.userDetails }
+                            />
                     </div>
 
                 </div>

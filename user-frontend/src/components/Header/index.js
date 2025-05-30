@@ -31,6 +31,9 @@ const Header = (props) => {
         });
     };
 
+    const userAccessToken = localStorage.getItem('USER_ACCESS_TOKEN');
+    console.debug('Header: userAccessToken = ', userAccessToken);
+
     return (
 
         <>
@@ -40,11 +43,10 @@ const Header = (props) => {
             style = {{
                   width: '100%'
                 , margin: 'auto'
-                , border: 'blue 1px solid'
+                , border: '#E4E4E4 1px solid'
             }}
             >
 
-            Header
             <div
                 className = { cn(
                       'header-container-desktop'
@@ -79,12 +81,27 @@ const Header = (props) => {
                     </div>
                 </div>
 
-                <div>
-                    <ul>
-                        <li><Link to = '/login'>Login</Link></li>
-                        <li><Link to = '/register'>Register</Link></li>
-                    </ul>
-                </div>
+                {
+                    userAccessToken
+                    ? <div>
+                        <ul>
+                            <li><Link to = '/my-referral-link'>My Referral Link</Link></li>
+                            <li><Link to = '/referred-affiliates'>Referred Affiliates</Link></li>
+                            <li><Link to = '/reward-history'>Reward History</Link></li>
+                        </ul>
+                        <button
+                            onClick = { e => props.loginRegisterFunctions.logoutUser(e) }
+                            >
+                            Log Out
+                        </button>
+                    </div>
+                    : <div>
+                        <ul>
+                            <li><Link to = '/login'>Login</Link></li>
+                            <li><Link to = '/register'>Register</Link></li>
+                        </ul>
+                    </div>
+                }
 
             </div>
 

@@ -18,7 +18,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 const Register = props => {
-    console.warn('Register()', props);
+    console.info('Register()', props);
 
     let index = props.index;
     let assetObject = props.assetObject;
@@ -254,7 +254,8 @@ const Register = props => {
                             , fontSize: '1.2em'
                             , paddingLeft: '8px'
                         }}
-                        onClick = { props.showLoginDialog }
+                        to = '/login'
+                        //onClick = { props.showLoginDialog }
                         >
                         Log In
                     </Link>

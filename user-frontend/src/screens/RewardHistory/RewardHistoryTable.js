@@ -4,34 +4,30 @@ import cn from 'classnames';
 import styles from './RewardHistory.module.sass';
 import referredAffiliatesStyles from '../ReferredAffiliates/ReferredAffiliates.module.sass';
 import { axiosInstance } from "../../utils/API";
-import {
-    useSelector
-} from 'react-redux';
 import ReactPaginate from "react-paginate";
 import moment from "moment";
 import { CircularProgress } from '@mui/material';
 import useWindowSize from "../../utils/useWindowSize.js";
 import { NAMES_CONSTANTS } from '../../constants';
 import { numberWithCommas } from '../../utils/formatPricingNumber';
+import { PopUpAlert } from "../../controller/utils";
 
 const RewardHistoryTable = (props) => {
+    console.log("RewardHistoryTable(props)", props)
 
     const dateFormat = 'MMM DD, YYYY';
     const rowsPerPage = 10;
-
     const [rewardData, setRewardData] = useState([]);
     const [walletDetails, setWalletDetails] = useState(null);
     const [params, setParams] = useState({ limit: 10, page: 1, type: "active" });
     const [count, setCount] = useState(0);
     const { index } = props;
-    const [loaderShow, setLoaderShow]=useState(false);
     const [sortValues, setSortValues] = useState("");
     const screenWidth = useWindowSize();
 
     const getAllAssets = async (index) => {
         console.log('getAllAssets(index)', index);
 
-        setLoaderShow(true);
         console.log('index = ', index);
 
         let parameters = params;
@@ -49,6 +45,10 @@ const RewardHistoryTable = (props) => {
                 break;
         }
 
+        parameters.userId = props.userDetails?.userId;
+        parameters.email = props.userDetails?.email;
+        console.log('parameters = ', parameters);
+
         let config = {
             headers: {
                 Authorization: "Bearer "+localStorage.getItem(NAMES_CONSTANTS.USER_ACCESS_TOKEN)
@@ -56,24 +56,46 @@ const RewardHistoryTable = (props) => {
             //, params: parameters
         };
 
+        config.params = parameters;
+
         try {
 
-            console.log('sortValues = ', sortValues)
-            //if (!sortValues) sortValues = 1;
-            let userData = await axiosInstance.get(`/user/rewards/history?level=${ sortValues }`, config);
+            let userData = await axiosInstance.get(`/user/rewards/history`, config);
             console.log('userData = ', userData)
             console.log('userData?.data = ', userData?.data)
             console.log('userData?.data?.result = ', userData?.data?.result)
             console.log('userData?.data?.result?.rows = ', userData?.data?.result?.rows)
-            console.log('userData?.data?.result?.walletDetails = ', userData?.data?.result?.walletDetails)
             console.log('userData?.data?.result?.totalPages = ', userData?.data?.result?.totalPages)
             setRewardData(userData?.data?.result?.rows);
             setWalletDetails(userData?.data?.result?.walletDetails)
             setCount(userData?.data?.result?.totalPages);
-            setLoaderShow(false);
         } catch (err) {
+
             setRewardData([]);
-            setLoaderShow(false);
+
+            let alertHeading = 'Alert';
+            let alertMessage = 'Error getting affiliate rewards';
+
+            if (err.response.data) {
+
+                alertHeading = err.response.data.message;
+
+                if (!err.response.data.error) {
+                    //alertHeading = 'Alert';
+                    //alertMessage = err.response.data.message;
+                    alertHeading = err.response.data.message;
+                    alertMessage = null;
+                } else {
+                    alertHeading = err.response.data.message;
+                    alertMessage = err.response.data.error
+                }
+
+                PopUpAlert(
+                      alertHeading
+                    , alertMessage
+                    , 'error'
+                );
+            }
         }
     };
 
@@ -99,8 +121,6 @@ const RewardHistoryTable = (props) => {
         <div
             style = {{ flexGrow: 1 }}
             >
-
-            {loaderShow && <div className={styles.loaderContent}><CircularProgress /></div>}
 
             {/* Temporarily removed Total Commission Received
                 walletDetails?.totalBalance.toString() 

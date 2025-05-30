@@ -26,11 +26,10 @@ const Footer = () => {
             id = 'footer'
             //className = { styles.footer }
             style = {{
-                border: 'blue 1px solid'
+                border: '#E4E4E4 1px solid'
             }}
             >
 
-            Footer
             <div
                 style = {{
                     padding: '0px 0px 0px 0px'

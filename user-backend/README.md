@@ -242,3 +242,94 @@ root@DESKTOP:/mnt/c/Users/user# redis-cli
 127.0.0.1:6379> KEYS *
 1) "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicHVibGljQWRkcmVzcyI6bnVsbCwiZW1haWwiOiJkZG9oZXJ0eUByZWFsc3BsaXQubmV0IiwiaWF0IjoxNzMzNzYzNTk1LCJleHAiOjE3MzM4NDk5OTV9.Q-4HnIatH7A_eW8noniAiuy4KrpSdZQx-_-pwqQfApY"
 ```
+
+# Sequelize Migrations
+
+## Create a template migration
+```
+$ npx sequelize-cli migration:generate --name migration-name-prefix
+```
+
+## Run a Migration by name
+```
+$ sequelize db:migrate --name migration_file_name
+$ npx sequelize-cli db:migrate --name 20230929183854-update-asset.js
+$ npx sequelize-cli db:migrate --env testing --name 20230929183854-update-asset.js
+```
+
+## Undo a Migration by name
+```
+$ sequelize db:migrate:undo  --name migration_file_name
+$ sequelize db:migrate:undo  --name 20230929183854-update-asset.js
+```
+
+## How to add a new migration to RealSplit (byexample)
+
+Run the sequelize command to create a new template migration.
+
+```
+$ npx sequelize-cli migration:generate --name update-asset
+```
+This creates a file: `migrations/20231107202936-update-asset.js`
+
+Update the file with the migration info:
+
+```javascript
+
+'use strict';
+
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+async up (queryInterface, Sequelize) {
+    await queryInterface.addColumn('Assets', 'intro', {
+              type: Sequelize.STRING
+            , allowNull: true
+        });
+    }
+
+    , async down (queryInterface, Sequelize) {
+        await queryInterface.removeColumn('Assets', 'intro');
+    }
+};
+
+```
+
+Update the `Assets` model in `realsplit-user-backend\models\asset.js`
+```javascript
+
+  Asset.init(
+    {
+        ...
+        intro: DataTypes.STRING,
+        ...
+    }
+  );
+
+````
+
+Once you have your migration ready, run `npm run migrate` to update the database structure.
+
+E.g.
+
+````
+$ npm run migrate
+
+> affiliate-referrals-user-backend@1.0.0 migrate
+> npx sequelize-cli db:migrate --env development
+
+
+Sequelize CLI [Node: 22.14.0, CLI: 6.6.3, ORM: 6.37.7]
+
+env =  development
+config =  {
+  username: 'postgres',
+  password: 'postgres',
+  database: 'affiliate_referrals',
+  host: 'localhost',
+  dialect: 'postgres',
+  logging: false
+}
+Loaded configuration file "config\sequelize-config.js".
+== 20250530143610-update-user: migrating =======
+== 20250530143610-update-user: migrated (0.123s)
+````
