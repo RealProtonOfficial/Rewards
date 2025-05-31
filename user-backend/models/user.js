@@ -28,14 +28,6 @@ module.exports = (sequelize, DataTypes) => {
             , status: DataTypes.STRING
             , referralCode: DataTypes.STRING
             , password: DataTypes.STRING
-            , isBlock: {
-                type: DataTypes.BOOLEAN
-                , defaultValue: false
-            }
-            , isDeleted: {
-                type: DataTypes.BOOLEAN
-                , defaultValue: false
-            }
         }
         , {
             sequelize

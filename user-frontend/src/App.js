@@ -259,7 +259,6 @@ function App() {
                     
                     if (response.ok) { // status of 200 signifies sucessful HTTP call, shorthand for checking that status is in the range 200-299 inclusive. Returns a boolean value.
                         //Swal.close();
-                        handleCloseRegisterDialog();
                         return response.json();
                     } else {
                         //console.info('response.text() = ', response.text());
@@ -276,9 +275,6 @@ function App() {
 
                         console.info('responseJson.success = ', responseJson.success);
                         if (responseJson.success) {
-
-                            setIsRegisteredUser(true);
-                            console.info('isRegisteredUser = ', isRegisteredUser);
 
                             console.info('responseJson.result = ', responseJson.result);
                             console.info('typeof responseJson.result = ', typeof responseJson.result);

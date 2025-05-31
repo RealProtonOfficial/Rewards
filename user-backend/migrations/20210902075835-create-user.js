@@ -27,6 +27,16 @@ module.exports = {
           }
         }
       },
+      password: {
+          type: Sequelize.STRING
+      },
+      status: {
+          type: Sequelize.STRING
+      },
+      referralCode: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

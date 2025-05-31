@@ -89,11 +89,17 @@ const Header = (props) => {
                             <li><Link to = '/referred-affiliates'>Referred Affiliates</Link></li>
                             <li><Link to = '/reward-history'>Reward History</Link></li>
                         </ul>
-                        <button
-                            onClick = { e => props.loginRegisterFunctions.logoutUser(e) }
-                            >
-                            Log Out
-                        </button>
+
+                        <div>
+                            <span style = {{ padding: '10px'}}>
+                                {
+                                    props.userDetails?.email
+                                }
+                            </span>
+                            <button onClick = { e => props.loginRegisterFunctions.logoutUser(e) }>
+                                Log Out
+                            </button>
+                        </div>
                     </div>
                     : <div>
                         <ul>

@@ -31,6 +31,7 @@ const Page = (props) => {
             <Header
                 className = "light"
                 loginRegisterFunctions = { props.loginRegisterFunctions }
+                userDetails = { props.userDetails }
                 />
 
             { props.children }

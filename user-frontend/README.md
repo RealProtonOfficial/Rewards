@@ -21,3 +21,69 @@ $ npm run build
 ```
 $ npm run start
 ```
+
+### View the User Frontend
+
+http://localhost:3010/
+
+
+### Register
+
+Register for a new account, then manually update the status of the user account to 'verified':
+
+```
+postgres=# \c affiliate_referrals
+affiliate_referrals=# update "users" set status = 'verified';
+```
+
+### Login
+
+Login using your new accont details to view the user home screen.
+
+### My Refferal Link
+
+Click "My Refferal Link" to see your referral link
+Click to copy the link to your clipboard.
+
+### Testing the Affiliate Referral Link
+
+Log out of the current account and access the service using the affiliate referral link.
+Click the Register link and create a new account.
+
+Check the database for the new users:
+
+```
+affiliate_referrals=# select * from "Users";
+```
+
+Check the database for the referral connection:
+
+```
+affiliate_referrals=# select * from "Referees";
+ id | userId | rLevel1 | rLevel2 | rLevel3 |         createdAt          |         updatedAt
+----+--------+---------+---------+---------+----------------------------+----------------------------
+  1 |      1 |         |         |         | 2025-05-30 22:19:00.834-06 | 2025-05-30 22:19:00.834-06
+  2 |      2 |       1 |         |         | 2025-05-30 22:44:26.053-06 | 2025-05-30 22:44:26.053-06
+```
+
+Click on the Referred Affiliates link in the User Home screens to view the referred affiliate.
+
+http://localhost:3010/referred-affiliates
+
+### Rewards
+
+Run the following SQL to create a rewards entry in the database:
+
+```
+affiliate_referrals=# insert into "Rewards" ("userId", "referralId", "assetName", "level", "commissionPercentage", "assetAmount", "commissionAmount", "createdAt", "updatedAt") values (1, 1, 'Test Asset', 1, 5, 500, 25, now(), now());
+```
+
+Check the `Rewards` table
+
+```
+affiliate_referrals=# select * from "Rewards";
+```
+
+Click on the Reward History link in the User Home screens to view the referral rewards.
+
+http://localhost:3010/reward-history
