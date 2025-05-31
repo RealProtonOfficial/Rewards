@@ -291,7 +291,7 @@ function App() {
                                     Swal.fire({
                                           //title: 'Success!'
                                           title: responseJson.message
-                                        , text: 'Please check your email to activate your account.'
+                                        , text: 'You will need to activate your account.'
                                         , icon: 'success'
                                         , customClass: {
                                             confirmButton: 'primary large'

@@ -84,6 +84,22 @@ Check the `Rewards` table
 affiliate_referrals=# select * from "Rewards";
 ```
 
-Click on the Reward History link in the User Home screens to view the referral rewards.
+Click on the "Reward History" link in the User Home screens to view the referral rewards.
 
 http://localhost:3010/reward-history
+
+### Testing the 3 Affiliates Levels
+
+Create a new account using the Affiliate Referal link of the second user.
+Then log in using the first account and click on Referred Affiliates to see teh 2 levels of affiliate connections.
+Now repeat the process using the referral link of the 3rd account you created to see the 3 levels of affiliate connections.
+
+```
+affiliate_referrals=# select * from "Referees";
+ id | userId | rLevel1 | rLevel2 | rLevel3 |         createdAt          |         updatedAt
+----+--------+---------+---------+---------+----------------------------+----------------------------
+  1 |      1 |         |         |         | 2025-05-30 22:19:00.834-06 | 2025-05-30 22:19:00.834-06
+  2 |      2 |       1 |         |         | 2025-05-30 22:44:26.053-06 | 2025-05-30 22:44:26.053-06
+  3 |      3 |       2 |       1 |         | 2025-05-30 23:11:09.718-06 | 2025-05-30 23:11:09.718-06
+  4 |      4 |       3 |       2 |       1 | 2025-05-30 23:18:34.883-06 | 2025-05-30 23:18:34.883-06
+```
