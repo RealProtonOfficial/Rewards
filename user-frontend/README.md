@@ -38,7 +38,7 @@ affiliate_referrals=# update "users" set status = 'verified';
 
 ### Login
 
-Login using your new accont details to view the user home screen.
+Login using your new account details to view the user home screen.
 
 ### My Refferal Link
 
@@ -47,7 +47,7 @@ Click to copy the link to your clipboard.
 
 ### Testing the Affiliate Referral Link
 
-Log out of the current account and access the service using the affiliate referral link.
+Log out of the current account and access the service using the affiliate referral link you just copied.
 Click the Register link and create a new account.
 
 Check the database for the new users:
@@ -56,7 +56,7 @@ Check the database for the new users:
 affiliate_referrals=# select * from "Users";
 ```
 
-Check the database for the referral connection:
+Check the database for the new referral connection:
 
 ```
 affiliate_referrals=# select * from "Referees";
@@ -66,7 +66,7 @@ affiliate_referrals=# select * from "Referees";
   2 |      2 |       1 |         |         | 2025-05-30 22:44:26.053-06 | 2025-05-30 22:44:26.053-06
 ```
 
-Click on the Referred Affiliates link in the User Home screens to view the referred affiliate.
+Log in to the first account and click on the Referred Affiliates link in the User Home screens to view the new referred affiliate.
 
 http://localhost:3010/referred-affiliates
 
@@ -88,11 +88,13 @@ Click on the "Reward History" link in the User Home screens to view the referral
 
 http://localhost:3010/reward-history
 
-### Testing the 3 Affiliates Levels
+### Testing the 3 levels of affiliate connections
 
-Create a new account using the Affiliate Referal link of the second user.
-Then log in using the first account and click on Referred Affiliates to see teh 2 levels of affiliate connections.
+Create a new account using the Affiliate Referral link of the second user.
+Then log in using the first account you created and click on Referred Affiliates to see the 2 levels of affiliate connections.
 Now repeat the process using the referral link of the 3rd account you created to see the 3 levels of affiliate connections.
+
+Check the database for integrity:
 
 ```
 affiliate_referrals=# select * from "Referees";
