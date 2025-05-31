@@ -91,7 +91,7 @@ function App() {
         if (e.key === 'Enter') {
             console.log('e.key = ', e.key);
             console.error(e.key, 'key');
-            handleLogin();
+            handleLogin(event);
         }
     };
 
@@ -101,12 +101,7 @@ function App() {
         if (e.key === 'Enter') {
             console.log('e.key = ', e.key);
             console.error(e.key, 'key');
-
-            if (isValidatedUser) {
-                handleLogin();
-            } else {
-                validateUserExist();
-            }
+            handleLogin(event);
         }
     };
 
