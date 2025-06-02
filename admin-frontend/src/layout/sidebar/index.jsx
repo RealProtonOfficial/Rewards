@@ -1,5 +1,4 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import { MENUITEMS } from "./menu";
 import { ArrowRight, ArrowLeft, Grid } from "react-feather";
 import { Link } from "react-router-dom";
@@ -7,7 +6,7 @@ import { Link } from "react-router-dom";
 import configDB from "../../data/customizer/config";
 import { DefaultLayout } from "../theme-customizer";
 import { axiosInstance, baseURL } from "../../utility/api";
-import { useDispatch } from "react-redux";
+//import { useDispatch } from "react-redux"; // Dermot Removed React Redux dependency
 import { SAVE_NAME } from "../../redux/actionTypes";
 import Swal from 'sweetalert2';
 import Logo from "../../assets/images/logo/logo.svg";
@@ -27,8 +26,6 @@ const Sidebar = (props) => {
     const [margin, setMargin] = useState(0);
     const [width, setWidth] = useState(0);
     const [sidebartoogle, setSidebartoogle] = useState(true);
-    const wrapper = useSelector((content) => content.Customizer.sidebar_types.type)
-        || configDB.data.settings.sidebar.type;
 
     const handleScroll = () => {
         if (window.scrollY > 400) {
@@ -48,7 +45,7 @@ const Sidebar = (props) => {
         }
     };
 
-    const dispatch = useDispatch();
+    //const dispatch = useDispatch(); // Dermot Removed React Redux dependency
 
     /*
     const formatTitle = (str) => {
@@ -128,10 +125,14 @@ const Sidebar = (props) => {
                     );
                     //console.log('menuItemsArray = ', menuItemsArray);
                 }
+
+                /* // Dermot Removed React Redux dependency
                 dispatch({
                     type: SAVE_NAME,
                     payload: res.data.result?.firstName,
                 });
+                */
+                
                 console.log('filteredMenuItems = ', filteredMenuItems);
                 setMainMenu([{ Items: filteredMenuItems }]);
                 // onClose();

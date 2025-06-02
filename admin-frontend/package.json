@@ -1,0 +1,31 @@
+{
+  "name": "admin-frontend",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/RealProtonOfficial/Rewards#readme",
+  "bugs": {
+    "url": "https://github.com/RealProtonOfficial/Rewards/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RealProtonOfficial/Rewards.git"
+  },
+  "license": "UNLICENSED",
+  "author": "Dermot",
+  "type": "commonjs",
+  "main": "src\\index.jsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@mui/icons-material": "^7.0.2",
+    "@mui/material": "^7.0.2",
+    "@mui/styles": "^6.4.8",
+    "react": "^19.1.0",
+    "react-confirm-alert": "^3.0.6",
+    "react-feather": "^2.0.8",
+    "react-router-dom": "^7.5.0",
+    "moment": "^2.29.1",
+    "sweetalert2": "^11.1.4"
+  }
+}
