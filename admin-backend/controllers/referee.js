@@ -148,6 +148,7 @@ exports.adminFetchAllRewards = async (limit, userId, res) => {
         return response.serverErrorResponse(res, "Something Went Wrong!");
     }
 };
+
 /**
  * Download user Rewards history CSV file
  * @param {*} userId 

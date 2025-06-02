@@ -1,0 +1,36 @@
+{
+  "name": "admin-backend",
+  "version": "1.0.0",
+  "description": "```\r $ git branch -r\r ```",
+  "homepage": "https://github.com/RealProtonOfficial/Rewards#readme",
+  "bugs": {
+    "url": "https://github.com/RealProtonOfficial/Rewards/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RealProtonOfficial/Rewards.git"
+  },
+  "license": "UNLICENSED",
+  "author": "Dermot",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "compression": "^1.7.4",
+    "consolidate": "^0.16.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.12.1",
+    "helmet": "^3.23.3",
+    "json2csv": "^5.0.6",
+    "moment": "^2.29.1",
+    "morgan": "^1.10.0",
+    "passport": "^0.4.1",
+    "sequelize": "^6.3.4"
+  }
+}
